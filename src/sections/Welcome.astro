@@ -1,44 +1,39 @@
----
-import { generateSlug, lastEpisode } from "@/lib/utils";
-
-const slug = generateSlug(lastEpisode.title);
-const lastEpisode_url = `podcast/${slug}`;
----
-
 <section
-  class="relative flex min-h-[90vh] w-full flex-col items-center justify-center gap-8"
+  class="relative aspect-video w-full flex flex-col items-center justify-center"
 >
-  <img
-    src="/kncelados-podcast.jpg"
-    alt="Kncelados Podcast"
-    class="absolute inset-0 -z-10 size-full object-cover object-[40%_30%] opacity-15"
-  />
-  <article
-    class="flex w-full flex-col items-center justify-center px-6 pb-6 text-center lg:px-20 lg:pb-20"
+  <div
+    id="video-container"
+    class="absolute bg-dark-950 inset-0 w-full z-[-1] flex items-baseline justify-center"
   >
-    <h1 class="mt-24 max-w-3xl text-5xl lg:text-8xl">
-      Un podcast de tonterías varias
-    </h1>
+    <video
+      src="/intro.webm"
+      playsinline
+      autoplay
+      muted
+      loop
+      class="size-full object-cover opacity-20"></video>
+  </div>
 
-    <p class="mt-6 max-w-5xl text-lg text-gray-300 lg:text-2xl">
-      Un podcast de tonterías varias. Quizá no aprendes nada, pero seguro que te
-      ríes un rato. Dónde ver el podcast, quienes son estos Kncelados, todo esta
-      aquí.
-    </p>
-
-    <div class="mt-10 flex flex-wrap justify-center">
-      <a
-        href={lastEpisode_url}
-        class="rounded-xl bg-knc-red px-8 py-3 transition-transform hover:scale-110"
-      >
-        Último episodio
-      </a>
-      <a
-        href="/#nosotros"
-        class="px-8 py-3 transition-transform hover:scale-110"
-      >
-        Nosotros
-      </a>
-    </div>
-  </article>
+  <p class="text-center max-w-4xl px-4 font-normal text-2xl lg:text-5xl leading-tight">
+    Kncelados no es un <span class="text-knc-600 font-semibold">[</span
+    >podcast<span class="text-knc-600 font-semibold">]</span>, es 10 que pasa
+    cuando juntas a seis personas que se olvidaron de filtrar 10 que piensan.
+    Aquí no venimos a educar a nadie, venimos a decir las barbaridades que tú
+    solo te atreves a pensar en el grupo de whatsapp. Si te ofendes, es que no
+    has entendido nada; si te ríes, bienvenido a la <span
+      class="text-knc-600 font-semibold">[</span
+    >resistencia<span class="text-knc-600 font-semibold">]</span>.
+  </p>
 </section>
+
+<style>
+  #video-container {
+    mask-image: linear-gradient(
+      0deg,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+</style>

@@ -1,34 +1,24 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Brands from "@/sections/Brands.astro";
+import Colaborate from "@/sections/Colaborate.astro";
+import Events from "@/sections/Events.astro";
+import Hero from "@/sections/Hero.astro";
+import KncineAwarads from "@/sections/KncineAwarads.astro";
+import Knsultorio from "@/sections/Knsultorio.astro";
+import Mug from "@/sections/Mug.astro";
+import Next from "@/sections/Next.astro";
 import Welcome from "@/sections/Welcome.astro";
-import NextEpisode from "@/sections/NextEpisode.astro";
-import Podcast from "@/sections/Podcast.astro";
-import LastVideos from "@/sections/LastVideos.astro";
-import Shorts from "@/sections/Shorts.astro";
-import Us from "@/sections/Us.astro";
-import Collaborate from "@/sections/Collaborate.astro";
-import Book from "@/sections/Book.astro";
-
-import { currentHours } from "@/lib/utils";
 ---
 
-<Fragment slot="head">
-  <link rel="preload" href="/kncelados-podcast.jpg" as="image" />
-</Fragment>
-
-<Layout
-  title="Kncelados | Un podcast de tonterías varias"
-  description="Un podcast de tonterías varias. Quizá no aprendes nada, pero seguro que te ríes un rato. Mira nuestros últimos videos descubre nuestro equipo sin filtros."
->
-  <main class="flex w-full flex-col items-center">
-    <div id="currentHours" class="sr-only">{currentHours}</div>
-    <Welcome />
-    <NextEpisode />
-    <Book />
-    <Podcast />
-    <LastVideos />
-    <Shorts />
-    <Us />
-    <Collaborate />
-  </main>
+<Layout>
+  <Hero />
+  <Welcome />
+  <Next />
+  <Mug />
+  <Knsultorio />
+  <!-- <Events /> -->
+  <Brands />
+  <!-- <KncineAwarads /> -->
+  <!-- <Colaborate /> -->
 </Layout>

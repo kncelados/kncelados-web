@@ -1,36 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import UnderConstruction from "@/components/UnderConstruction.astro";
 ---
 
 <Layout
   title="¿Eres sponsor?"
   description="Si quieres sponsorizarnos, generar una colboración o realizar un patrocinio con Kncelados, dale aquí."
 >
-  <section
-    class="flex flex-1 flex-col items-center justify-center gap-8 bg-knc-blue px-4"
-  >
-    <h1 class="text-4xl font-bold lg:text-8xl">Proximamente</h1>
-    <p class="mt-6 max-w-3xl text-center text-base lg:text-xl">
-      Proximamente abriremos un espacio con toda la información sobre nuestro
-      equipo. Mientras tanto, puedes descargar nuestro dossier y enviarnos un
-      email.
-    </p>
-
-    <div class="flex flex-wrap justify-center gap-4">
-      <a
-        href="/knc_dossier-web_2024.pdf"
-        target="_blank"
-        class="rounded-md bg-knc-red px-8 py-3 text-center text-sm uppercase text-gray-50 transition-transform hover:scale-110 lg:text-base"
-      >
-        DESCARGAR DOSSIER
-      </a>
-
-      <a
-        href="mailto:hola@kncelados.com"
-        class="rounded-md px-8 py-3 text-center text-sm uppercase transition-transform hover:scale-110 lg:text-base"
-      >
-        hola@kncelados.com
-      </a>
-    </div>
-  </section>
+  <UnderConstruction title="Próximamente" />
 </Layout>

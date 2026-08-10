@@ -1,155 +1,70 @@
 ---
 import "@/styles/global.css";
-/* import { ClientRouter } from "astro:transitions"; */
+import "@fontsource/boldonse";
+import "@fontsource-variable/google-sans/wght.css";
+import "@fontsource-variable/caveat/wght.css";
 
-import Navbar from "@/components/Navbar.astro";
 import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
 
-const { title, description, image } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1.0, viewport-fit=cover"
-    />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Kncelados" />
-    <link rel="apple-touch-icon" type="image/png" href="/mobile.png" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <!-- <ClientRouter /> -->
-    <meta name="author" content="verdu | verdu@live.com" />
-    <meta name="robots" content="index, follow" />
-    <link
-      rel="preload"
-      href="/fonts/clashdisplay-medium.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/clashdisplay-bold.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:url" content="https://www.kncelados.com" />
-    <meta
-      property="og:image"
-      content={image || "https://www.kncelados.com/logo-512.jpg"}
-    />
-    <meta property="og:description" content={description} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:site" content="@kncelados" />
-    <meta name="twitter:description" content={description} />
-    <meta
-      name="twitter:image"
-      content={image || "https://www.kncelados.com/card.jpg"}
-    />
-    <meta name="twitter:image:alt" content={title} />
-    <script type="application/ld+json" is:inline>
-      {
-        "@context": "http://schema.org/",
-        "@type": "PerformingGroup",
-        "name": "Kncelados",
-        "logo": "https://www.kncelados.com/mobile.png",
-        "url": "https://www.kncelados.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressRegion": "Barcelona",
-          "addressCountry": "Spain"
-        },
-        "sameAs": [
-          "https://www.youtube.com/@kncelados",
-          "https://www.instagram.com/kncelados",
-          "https://www.tiktok.com/@kncelados",
-          "https://open.spotify.com/show/5bDQAbJUSdfHYdii8A8eX0",
-          "https://t.me/kncelados",
-          "https://www.patreon.com/kncelados"
-        ]
-      }
-    </script>
-
-    <script
-      type="text/partytown"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2074822779325165"
-      crossorigin="anonymous"
-      is:inline></script>
-
-    <script>
-      import "@justinribeiro/lite-youtube";
-    </script>
-  </head>
-
-  <!-- Google tag (gtag.js) -->
-  <script
-    type="text/partytown"
-    src="https://www.googletagmanager.com/gtag/js?id=G-486FS251TB"
-    is:inline></script>
-  <script type="text/partytown" is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
+  <meta charset="UTF-8" />
+  <meta name="description" content={description} />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1.0, viewport-fit=cover"
+  />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Kncelados" />
+  <link rel="apple-touch-icon" type="image/png" href="/mobile.png" />
+  <title>{title}</title>
+  <meta name="author" content="verdu | verdu@live.com" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:url" content="https://www.kncelados.com" />
+  <meta property="og:image" content="https://www.kncelados.com/logo-512.png" />
+  <meta property="og:description" content={description} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:site" content="@kncelados" />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://www.kncelados.com/card.jpg" />
+  <meta name="twitter:image:alt" content={title} />
+  <script type="application/ld+json" is:inline>
+    {
+      "@context": "http://schema.org/",
+      "@type": "PerformingGroup",
+      "name": "Kncelados",
+      "logo": "https://www.kncelados.com/mobile.png",
+      "url": "https://www.kncelados.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Barcelona",
+        "addressCountry": "Spain"
+      },
+      "sameAs": [
+        "https://www.youtube.com/@kncelados",
+        "https://www.instagram.com/kncelados",
+        "https://www.tiktok.com/@kncelados",
+        "https://open.spotify.com/show/5bDQAbJUSdfHYdii8A8eX0",
+        "https://t.me/kncelados",
+        "https://www.patreon.com/kncelados"
+      ]
     }
-    gtag("js", new Date());
-
-    gtag("config", "G-486FS251TB");
   </script>
 
-  <body class="bg-knc-dark flex min-h-svh flex-col text-gray-50">
-    <div class="flex w-full flex-1 flex-col overflow-clip">
-      <Navbar />
-      <slot />
-      <Footer />
-    </div>
-
-    <style is:global>
-      :root {
-        @apply scroll-smooth;
-      }
-
-      p,
-      figcaption {
-        @apply text-pretty;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        @apply text-balance;
-      }
-
-      @font-face {
-        font-family: "Clash Display Variable";
-        font-weight: normal;
-        font-style: normal;
-        src: url("/fonts/clashdisplay-medium.woff2") format("woff2");
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "Clash Display Variable";
-        font-weight: bold;
-        font-style: normal;
-        src: url("/fonts/clashdisplay-bold.woff2") format("woff2");
-        font-display: swap;
-      }
-    </style>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
   </body>
 </html>

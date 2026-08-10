@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/Link.astro";
 ---
 
 <Fragment slot="head">
@@ -10,13 +11,13 @@ import Layout from "@/layouts/Layout.astro";
     property="og:description"
     content="Descarga nuestros PDFs con arte oficial de Kncelados. Material listo para compartir, imprimir y usar en tus redes."
   />
-  <meta property="og:image" content="https://www.kncelados.com/logo-512.jpg" />
+  <meta property="og:image" content="https://www.kncelados.com/logo-512.png" />
   <meta name="twitter:title" content="Descargas | Kncelados" />
   <meta
     name="twitter:description"
     content="Descarga nuestros PDFs con arte oficial de Kncelados. Material listo para compartir, imprimir y usar en tus redes."
   />
-  <meta name="twitter:image" content="https://www.kncelados.com/logo-512.jpg" />
+  <meta name="twitter:image" content="https://www.kncelados.com/logo-512.png" />
   <link rel="canonical" href="https://www.kncelados.com/descargas" />
 </Fragment>
 
@@ -25,18 +26,18 @@ import Layout from "@/layouts/Layout.astro";
   description="Descarga nuestros PDFs con arte oficial de Kncelados. Material listo para compartir, imprimir y usar en tus redes."
 >
   <section
-    class="flex min-h-[80vh] flex-1 flex-col items-center gap-8 px-4 pb-20 text-center"
+    class="flex min-h-[80vh] flex-1 flex-col items-center gap-8 px-4 pb-40 text-center"
   >
-    <h1 class="mt-48 max-w-3xl text-4xl lg:text-7xl">Descargas</h1>
+    <h1 class="mt-48 max-w-3xl text-2xl lg:text-4xl">Descargas</h1>
 
-    <p class="max-w-3xl text-lg text-gray-300 lg:text-xl">
+    <p class="max-w-3xl text-lg text-dark-200 lg:text-xl">
       Descarga nuestros PDFs con arte oficial de Kncelados. Material listo para
       compartir, imprimir y usar.
     </p>
 
-    <div class="mt-12 grid w-full max-w-5xl gap-4 sm:grid-cols-2">
+    <div class="mt-12 grid w-full max-w-6xl gap-4 sm:grid-cols-2">
       <article
-        class="flex items-center overflow-hidden rounded-3xl border border-white/10 bg-white/5"
+        class="flex items-center overflow-hidden rounded-3xl border border-dark-50/10 bg-dark-50/5"
       >
         <div
           class="flex min-h-[320px] w-full flex-col items-center lg:min-h-[200px] lg:flex-row"
@@ -53,20 +54,20 @@ import Layout from "@/layouts/Layout.astro";
           <div
             class="flex w-full flex-1 flex-col items-center justify-center p-8 text-center lg:items-start lg:justify-start lg:text-left"
           >
-            <h2 class="text-2xl">No Vendo</h2>
-            <a
-              href="/descargas/no-vendo.pdf"
-              download
-              class="bg-knc-red mt-6 inline-flex rounded-xl px-4 py-3 text-sm font-semibold transition hover:scale-105"
-            >
-              Descargar PDF
-            </a>
+            <p class="text-2xl font-sans">No Vendo</p>
+            <div class="mt-6">
+              <Link
+                href="/descargas/no-vendo.pdf"
+                label="Descargar PDF"
+                download
+              />
+            </div>
           </div>
         </div>
       </article>
 
       <article
-        class="flex items-center overflow-hidden rounded-3xl border border-white/10 bg-white/5"
+        class="flex items-center overflow-hidden rounded-3xl border border-dark-50/10 bg-dark-50/5"
       >
         <div
           class="flex min-h-[320px] w-full flex-col items-center lg:min-h-[200px] lg:flex-row"
@@ -83,14 +84,14 @@ import Layout from "@/layouts/Layout.astro";
           <div
             class="flex w-full flex-1 flex-col items-center justify-center p-8 text-center lg:items-start lg:justify-start lg:text-left"
           >
-            <h2 class="text-2xl">Yo Aparco Mal</h2>
-            <a
-              href="/descargas/yoaparcomal.pdf"
-              download
-              class="bg-knc-red mt-6 inline-flex rounded-xl px-4 py-3 text-sm font-semibold transition hover:scale-105"
-            >
-              Descargar PDF
-            </a>
+            <p class="text-2xl font-sans">Yo Aparco Mal</p>
+            <div class="mt-6">
+              <Link
+                href="/descargas/yoaparcomal.pdf"
+                label="Descargar PDF"
+                download
+              />
+            </div>
           </div>
         </div>
       </article>

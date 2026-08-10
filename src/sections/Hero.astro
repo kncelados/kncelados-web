@@ -1,0 +1,267 @@
+---
+import LineLeft from "@/lib/assets/LineLeft.astro";
+import LineRight from "@/lib/assets/LineRight.astro";
+import LineBottom from "@/lib/assets/LineBottom.astro";
+import Link from "@/components/Link.astro";
+import { Play, ShoppingBag, Calendar } from "@lucide/astro";
+
+const ctas = [
+  {
+    label: "Ver podcast",
+    href: "/podcast",
+    icon: Play,
+    bgColor: "bg-knc-600",
+    textColor: "text-dark-950",
+  },
+  {
+    label: "Colabora con nosotros",
+    href: "/contacto",
+    icon: undefined,
+    bgColor: "bg-dark-800",
+    textColor: "text-dark-50",
+  },
+  {
+    label: "Comprar taza",
+    href: "https://kncelados.myshopify.com/products/taza-roja",
+    icon: ShoppingBag,
+    bgColor: "bg-knc-600",
+    textColor: "text-dark-950",
+    target: "_blank",
+  },
+  {
+    label: "Participa en el knsultorio",
+    href: "/knsultorio",
+    icon: undefined,
+    bgColor: "bg-dark-800",
+    textColor: "text-dark-50",
+  },
+  {
+    label: "Ver eventos",
+    href: "/eventos",
+    icon: Calendar,
+    bgColor: "bg-knc-600",
+    textColor: "text-dark-950",
+  },
+  {
+    label: "KnCine Awards",
+    href: "/kncine-awards",
+    icon: undefined,
+    bgColor: "bg-dark-800",
+    textColor: "text-dark-50",
+  },
+  {
+    label: "Comprar el libro",
+    href: "https://amzn.eu/d/j9PeBIn",
+    icon: ShoppingBag,
+    bgColor: "bg-knc-600",
+    textColor: "text-dark-950",
+    target: "_blank",
+  },
+  {
+    label: "Descargas",
+    href: "/descargas",
+    icon: undefined,
+    bgColor: "bg-dark-800",
+    textColor: "text-dark-50",
+  },
+];
+
+const marqueeItems = [...ctas, ...ctas, ...ctas];
+---
+
+<section class="pt-24 h-svh flex flex-col items-center justify-center">
+  <div class="fixed -z-10 size-full opacity-10 pointer-events-none">
+    <LineLeft class="absolute top-0 left-0 scale-125 w-full -z-10" />
+    <LineRight class="absolute top-0 left-0 scale-125 w-full -z-10" />
+    <LineBottom class="absolute top-3/4 left-1/2 w-full -z-10" />
+  </div>
+
+  <h1 class="text-5xl lg:text-8xl text-center">
+    F<span class="text-knc-600">*</span>CK<br class="lg:hidden" /> M<span class="text-knc-600">[</span
+    ><span id="face"></span><span class="text-knc-600">]</span>NDAYS
+  </h1>
+
+  <div class="marquee-container flex flex-col mt-12 lg:mt-24">
+    <div class="marquee py-2">
+      <div class="marquee__group">
+        {
+          marqueeItems.map((cta) => (
+            <Link
+              href={cta.href}
+              label={cta.label}
+              bgColor={cta.bgColor}
+              textColor={cta.textColor}
+              icon={cta.icon}
+              target={cta.target}
+            />
+          ))
+        }
+      </div>
+      <div class="marquee__group" aria-hidden="true">
+        {
+          marqueeItems.map((cta) => (
+            <Link
+              href={cta.href}
+              label={cta.label}
+              bgColor={cta.bgColor}
+              textColor={cta.textColor}
+              icon={cta.icon}
+              target={cta.target}
+            />
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="marquee marquee--reverse py-2" aria-hidden="true">
+      <div class="marquee__group">
+        {
+          marqueeItems.map((cta) => (
+            <Link
+              href={cta.href}
+              label={cta.label}
+              bgColor={cta.bgColor}
+              textColor={cta.textColor}
+              icon={cta.icon}
+              target={cta.target}
+            />
+          ))
+        }
+      </div>
+      <div class="marquee__group" aria-hidden="true">
+        {
+          marqueeItems.map((cta) => (
+            <Link
+              href={cta.href}
+              label={cta.label}
+              bgColor={cta.bgColor}
+              textColor={cta.textColor}
+              icon={cta.icon}
+              target={cta.target}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #face {
+    display: inline-block;
+    width: 0;
+    height: 2em;
+    overflow: hidden;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0;
+    transform: scale(1.5);
+    transition:
+      width 0.4s ease-in-out,
+      opacity 0.3s ease-in-out;
+  }
+
+  .marquee-container {
+    width: 100%;
+    overflow: clip;
+    mask-image: linear-gradient(
+      to left,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+  }
+
+  .marquee {
+    display: flex;
+    overflow: clip;
+    user-select: none;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .marquee__group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: scroll-x 80s linear infinite;
+  }
+
+  .marquee:hover .marquee__group {
+    animation-play-state: paused;
+  }
+
+  .marquee--reverse .marquee__group {
+    animation-direction: reverse;
+    animation-delay: -3s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__group {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes scroll-x {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 1rem));
+    }
+  }
+
+</style>
+
+<script>
+  const $face = document.querySelector("#face") as HTMLSpanElement;
+  const faces = [
+    "/rup.webp",
+    "/dani.webp",
+    "/ander.webp",
+    "/verdu.webp",
+    "/ruth.webp",
+    "/jose.webp",
+  ].sort(() => Math.random() - 0.5);
+
+  if ($face) {
+    let currentIndex = 0;
+    const showDuration = 3200;
+    const shrinkDuration = 800;
+
+    const playFace = (index: number) => {
+      $face.style.backgroundImage = `url('${faces[index]}')`;
+      $face.style.width = "0";
+      $face.style.opacity = "0";
+
+      requestAnimationFrame(() => {
+        $face.style.width = "2em";
+        $face.style.opacity = "1";
+      });
+
+      window.setTimeout(() => {
+        $face.style.width = "0";
+        $face.style.opacity = "0";
+
+        window.setTimeout(() => {
+          const nextIndex = (index + 1) % faces.length;
+          playFace(nextIndex);
+        }, shrinkDuration);
+      }, showDuration);
+    };
+
+    playFace(currentIndex);
+  }
+
+  document.querySelectorAll(".line-bottom, .line-left, .line-right").forEach((line) => {
+    const length = line.querySelector("path")?.getTotalLength();
+    if (length) {
+      line.style.strokeDasharray = length.toString();
+      line.style.strokeDashoffset = length.toString();
+    }
+  });
+</script>

@@ -1,0 +1,17 @@
+---
+import Link from "@/components/Link.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section
+  class="flex min-h-[80vh] flex-col items-center justify-center gap-8 px-4 text-center"
+>
+  <h1 class="text-4xl lg:text-7xl">{title}</h1>
+  <p class="text-lg text-dark-200">En construcción</p>
+  <Link href="/" label="Volver al inicio" />
+</section>

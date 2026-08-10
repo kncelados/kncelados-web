@@ -1,0 +1,130 @@
+---
+const brands = [
+  {
+    src: "/goiko.svg",
+    alt: "Goiko",
+    href: "https://www.goiko.com/es/?from=kncelados.com",
+  },
+  {
+    src: "/prime-video.svg",
+    alt: "Prime Video",
+    href: "https://www.primevideo.com/?from=kncelados.com",
+  },
+  {
+    src: "/penguin.svg",
+    alt: "Penguin",
+    href: "https://www.penguinlibros.com/es/?from=kncelados.com",
+  },
+  {
+    src: "/temu.svg",
+    alt: "Temu",
+    href: "https://www.temu.com/?from=kncelados.com",
+  },
+  {
+    src: "/zeemo.svg",
+    alt: "Zeemo",
+    href: "https://zeemo.ai/es/?from=kncelados.com",
+  },
+];
+---
+
+<section
+  class="py-16 lg:py-32 gap-8 lg:gap-16 bg-knc-600 flex flex-col w-full items-center justify-center overflow-clip relative z-20"
+>
+  <h2 class="text-2xl lg:text-4xl -rotate-3 px-4 pt-4 lg:px-0 lg:pt-0">
+    SERIA<span class="line-through decoration-dark-950 relative">
+      &nbsp;IMPOSIBLE&nbsp;
+    </span>SIN
+  </h2>
+
+  <div class="flex w-full lg:justify-center">
+    <div class="overflow-clip w-full">
+      <div class="flex gap-4 shrink-0 animate-marquee">
+        {
+          brands.map((brand) => (
+            <a
+              href={brand.href}
+              target="_blank"
+              rel="sponsored noopener"
+              class="shrink-0"
+            >
+              <img
+                src={brand.src}
+                alt={brand.alt}
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            </a>
+          ))
+        }
+        <div aria-hidden="true" class="flex gap-4 shrink-0">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    width: max-content;
+    animation: marquee 20s linear infinite;
+  }
+
+  h2 span::after {
+    content: "mucho más dificil";
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    font-family: var(--font-hand);
+    text-transform: lowercase;
+    color: var(--color-dark-950);
+    text-align: center;
+    transform: scale(1.3);
+  }
+</style>

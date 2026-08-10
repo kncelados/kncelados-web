@@ -6,9 +6,9 @@ const { pathname } = Astro.url;
 const isStore = pathname.startsWith("/tienda");
 ---
 
-<header class="fixed top-0 left-0 z-50 flex w-full justify-center lg:absolute">
+<header class="fixed top-0 left-0 z-10 flex w-full justify-center lg:absolute">
   <nav class="flex w-full items-center justify-between text-gray-50 lg:px-14">
-    <a href="/" class="z-10 p-6">
+    <a href="/" class="z-20 p-6">
       <Logo class="w-14 lg:w-20" />
       <span class="sr-only">kncelados</span>
     </a>
@@ -81,7 +81,7 @@ const isStore = pathname.startsWith("/tienda");
       </li>
     </ul>
 
-    <button id="nav-btn" class="z-10 p-6 transition-all lg:hidden">
+    <button id="nav-btn" class="z-20 p-6 transition-all lg:hidden">
       <Menu class:list={["size-8", isStore && "text-knc-dark"]} />
       <span class="sr-only">Menú</span>
     </button>

@@ -1,10 +1,90 @@
 ---
-import Iso from "@/lib/assets/Iso.astro";
+import EmptiedLogo from "@/lib/assets/EmptiedLogo.astro";
+import Instagram from "@/lib/assets/Instagram.astro";
+import Patreon from "@/lib/assets/Patreon.astro";
+import Spotify from "@/lib/assets/Spotify.astro";
+import Telegram from "@/lib/assets/Telegram.astro";
+import Tiktok from "@/lib/assets/Tiktok.astro";
+import Youtube from "@/lib/assets/Youtube.astro";
+
+const navLinks = [
+  { label: "Inicio", href: "/" },
+  { label: "Podcast", href: "/podcast" },
+  { label: "Colabora", href: "/contacto" },
+  { label: "Tienda", href: "/tienda" },
+  { label: "Knsultorio", href: "/knsultorio" },
+  { label: "Eventos", href: "/eventos" },
+  { label: "KnCine Awards", href: "/kncine-awards" },
+  { label: "Descargas", href: "/descargas" },
+];
+
+const socials = [
+  { label: "Youtube", href: "https://www.youtube.com/@kncelados", icon: Youtube },
+  {
+    label: "Spotify",
+    href: "https://open.spotify.com/show/5bDQAbJUSdfHYdii8A8eX0",
+    icon: Spotify,
+  },
+  { label: "Instagram", href: "https://www.instagram.com/kncelados", icon: Instagram },
+  { label: "TikTok", href: "https://www.tiktok.com/@kncelados", icon: Tiktok },
+  { label: "Telegram", href: "https://t.me/kncelados", icon: Telegram },
+  { label: "Patreon", href: "https://www.patreon.com/kncelados", icon: Patreon },
+];
 ---
 
-<footer class="bg-knc-red p-3 text-knc-dark lg:px-20 z-10">
-  <div class="flex items-center justify-between">
-    <p class="text-sm">2024-2025. Algún derecho reservado.</p>
-    <Iso class="size-6" />
+<footer class="bg-knc-600 text-dark-950">
+  <div
+    class="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 px-6 py-20 lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-16"
+  >
+    <EmptiedLogo class="size-14 justify-self-center lg:justify-self-start" />
+
+    <nav aria-label="Mapa web" class="justify-self-center">
+      <ul
+        class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-3 text-center font-title text-xl uppercase lg:text-left"
+      >
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="hover:opacity-70 transition-opacity">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <ul
+      class="flex flex-wrap items-center justify-center gap-6 justify-self-center lg:justify-self-end"
+    >
+      {
+        socials.map(({ label, href, icon: Icon }) => (
+          <li>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              title={label}
+              class="hover:scale-110 transition-transform inline-flex"
+            >
+              <Icon class="size-8" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="border-t border-dark-950/20 py-6 text-center text-sm">
+    <p>
+      © <span data-year>2026</span> Kncelados. Todos los derechos reservados.
+    </p>
   </div>
 </footer>
+
+<script>
+  document
+    .querySelectorAll("[data-year]")
+    .forEach((el) => (el.textContent = String(new Date().getFullYear())));
+</script>

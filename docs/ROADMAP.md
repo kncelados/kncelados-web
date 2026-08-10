@@ -4,13 +4,18 @@
 > Estado: `pendiente` / `en progreso` / `bloqueado` / `hecho`.
 
 | ID | Hito | Estado | Depende de | Riesgo | Criterio de aceptación |
-|---|---|---|---|---|---|
-| H0 | Rellenar `ARCHITECTURE.md`: versiones actuales, QR, export GSC, redirects | pendiente | — | — | Secciones "estado actual" y "no se puede romper" completas |
-| H1 | `astro upgrade` en rama aparte, sin Tailwind todavía | pendiente | H0 | medio | Build pasa, capturas de páginas tipo comparadas sin diffs visuales |
-| H2 | Migrar Tailwind v3 → v4 (config CSS-first) | pendiente | H1 | **alto** | Build pasa + revisión visual manual de cada plantilla tipo |
-| H3 | Portar componentes de la home rediseñada al proyecto actualizado | pendiente | H2 | bajo | Home nueva renderiza igual que en el proyecto de rediseño aislado |
-| H4 | Exportar checklist de QA desde Search Console (URLs indexadas + QR) | pendiente | H0 | — | Checklist en `docs/` con lista completa de URLs a verificar |
-| H5 | Deploy preview en Vercel + validar checklist H4 contra el preview | pendiente | H3, H4 | **alto** | Todas las URLs del checklist responden 200 y con el contenido esperado |
-| H6 | Replicar redirects/robots/sitemap/trailingSlash en config de Vercel | pendiente | H4 | **alto** | Comparación 1:1 con reglas actuales de Netlify, sin huecos |
-| H7 | Corte de DNS a Vercel (Netlify se mantiene activo como respaldo) | pendiente | H5, H6 | **alto** | Sitio en producción sirviendo desde Vercel, Netlify sin tráfico pero disponible |
-| H8 | Monitorizar 404s / cobertura en Search Console post-corte | pendiente | H7 | medio | Sin 404 inesperados en 7 días |
+|---|---|---|---|---|---|---|
+| H0 | Rellenar `ARCHITECTURE.md`: QR, export GSC, trailingSlash, URLs nuevo repo/Vercel | hecho | — | — | Secciones completas |
+| H1 | Upgrade Astro 5.14.6 → 7.1.6 + adapter swap Netlify → Vercel + Tailwind 4.0.3 → 4.3.3 | hecho | — | medio | Build pasa, todas las páginas responden 200, 0 errores astro check |
+| H2 | Migrar Tailwind v3 → v4 (config CSS-first) | hecho | H1 | **alto** | Ya estaba v4.0.3 antes del upgrade; el proyecto nunca usó v3. Actualizado a 4.3.3 como parte de H1 |
+| H3 | Verificar scripts de scrape y mystery QR tras upgrade | hecho | H1 | bajo | Los 4 scripts (`scrape:episodes`, `scrape:collections`, `scrape:shorts`, `mystery:qr`) ejecutan sin errores |
+| H4 | Portar componentes de la home rediseñada al proyecto actualizado | pendiente | H2 | bajo | Home nueva portada manualmente sobre `migration`; verificación build/lint + visual (pendiente: gsap vs motion) |
+| | └ H4.1 Hacer el menú (Navbar mobile/desktop) | pendiente | — | — | Menú funcional en todas las resoluciones |
+| | └ H4.2 Ajustar versión móvil | pendiente | H4.1 | — | Responsive verificado en todas las secciones |
+| | └ H4.3 Finalizar sección Colabora en la home | pendiente | — | — | Sección con contenido real (placeholder actual → diseño final) |
+| H5 | Migrar repo a nuevo GitHub exclusivo de kncelados (`github.com/kncelados/kncelados-web`) | pendiente | H3, H4 | medio | Código completo en nuevo repo, commit inicial limpio (sin historial previo) |
+| H6 | Deploy a Vercel + verificación manual | pendiente | H5 | medio | Deploy funciona desde nuevo repo, todas las páginas responden 200, usuario verifica visualmente |
+| H7 | Corte DNS en IONOS (Netlify se mantiene como respaldo hasta confirmar) | pendiente | H6 | **alto** | `www.kncelados.com` sirve desde Vercel; tras confirmar, usuario borra Netlify manualmente |
+
+> **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
+> secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.

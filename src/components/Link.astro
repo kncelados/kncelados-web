@@ -1,0 +1,45 @@
+---
+export interface Props {
+  href: string;
+  label: string;
+  bgColor?: string;
+  textColor?: string;
+  icon?: any;
+  target?: string;
+  rel?: string;
+  download?: boolean;
+}
+
+const {
+  href,
+  label,
+  bgColor = "bg-knc-600",
+  textColor = "text-dark-950",
+  icon: Icon,
+  target,
+  rel,
+  download,
+} = Astro.props;
+
+const resolvedRel =
+  rel ?? (target === "_blank" ? "noopener noreferrer" : undefined);
+---
+
+<a
+  href={href}
+  target={target}
+  rel={resolvedRel}
+  download={download}
+  class={`${bgColor} flex gap-6 ${textColor} hover:scale-110 hover:-rotate-2 transition-transform items-center px-1 py-1 pl-8 rounded-full`}
+>
+  <span class="-mb-1 text-sm lg:text-base">{label}</span>
+  {
+    Icon ? (
+      <span class="bg-dark-950 text-dark-50 rounded-full size-9 lg:size-11 flex items-center justify-center">
+        <Icon class="size-5" />
+      </span>
+    ) : (
+      <span class="h-11" />
+    )
+  }
+</a>
