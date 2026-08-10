@@ -11,19 +11,3 @@
   >
   </path>
 </svg>
-
-<style>
-  .line-left {
-    animation: draw 12s alternate both ease-in-out infinite;
-  }
-</style>
-
-<script is:inline>
-  const lineLeft = document.querySelector(".line-left") as SVGElement;
-  const length = lineLeft.querySelector("path")?.getTotalLength();
-
-  if (length) {
-    lineLeft.style.strokeDasharray = length.toString();
-    lineLeft.style.strokeDashoffset = length.toString();
-  }
-</script>

@@ -1,17 +1,158 @@
 ---
 import EmptiedLogo from "@/lib/assets/EmptiedLogo.astro";
+import Instagram from "@/lib/assets/Instagram.astro";
+import Patreon from "@/lib/assets/Patreon.astro";
+import Spotify from "@/lib/assets/Spotify.astro";
+import Telegram from "@/lib/assets/Telegram.astro";
+import Tiktok from "@/lib/assets/Tiktok.astro";
+import Youtube from "@/lib/assets/Youtube.astro";
+
+const navLinks = [
+  { label: "Inicio", href: "/" },
+  { label: "Podcast", href: "/podcast" },
+  { label: "Colabora", href: "/contacto" },
+  { label: "Tienda", href: "/tienda" },
+  { label: "Knsultorio", href: "/knsultorio" },
+  { label: "Eventos", href: "/eventos" },
+  { label: "KnCine Awards", href: "/kncine-awards" },
+  { label: "Descargas", href: "/descargas" },
+];
+
+const socials = [
+  { label: "Youtube", href: "https://www.youtube.com/@kncelados", icon: Youtube },
+  { label: "Spotify", href: "https://open.spotify.com/show/5bDQAbJUSdfHYdii8A8eX0", icon: Spotify },
+  { label: "Instagram", href: "https://www.instagram.com/kncelados", icon: Instagram },
+  { label: "TikTok", href: "https://www.tiktok.com/@kncelados", icon: Tiktok },
+  { label: "Telegram", href: "https://t.me/kncelados", icon: Telegram },
+  { label: "Patreon", href: "https://www.patreon.com/kncelados", icon: Patreon },
+];
 ---
 
-<header class="fixed w-full flex items-center justify-between p-12">
-  <a href="/" class="hover:rotate-360 transition-transform duration-500">
+<header class="fixed z-50 w-full flex items-center justify-between p-4 lg:p-12">
+  <a href="/" id="header-logo" class="hover:rotate-360 transition-transform duration-500">
     <EmptiedLogo class="size-18 text-knc-600" />
   </a>
 
   <button
-    class="cursor-pointer text-xl rotate-3 hover:rotate-6 hover:scale-110 transition-transform"
+    id="menu-btn"
+    class="cursor-pointer text-xl z-50 rotate-3 hover:rotate-6 hover:scale-110 transition-transform"
   >
-    <span class="text-knc-600">[</span>
-    <span>menu</span>
-    <span class="text-knc-600">]</span>
+    <span id="menu-bracket-l" class="text-knc-600">[</span>
+    <span id="menu-btn-text">menu</span>
+    <span id="menu-bracket-r" class="text-knc-600">]</span>
   </button>
 </header>
+
+<div
+  id="menu-modal"
+  class="fixed inset-0 z-40 hidden flex-col bg-knc-600 text-dark-950 px-4 transition-[clip-path] duration-500 ease-out"
+>
+  <div class="flex h-[90%] items-center justify-center pt-12">
+    <nav class="w-[85%]">
+      <ul
+        class="grid grid-cols-1 gap-y-6 text-left font-title text-3xl uppercase lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 lg:text-6xl"
+      >
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="menu-link inline-block transition-transform hover:scale-110 hover:-rotate-2"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="flex h-[10%] items-center justify-center pb-8">
+    <ul class="flex flex-wrap justify-center gap-8">
+      {
+        socials.map(({ label, href, icon: Icon }) => (
+          <li>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              title={label}
+              class="inline-flex transition-transform hover:scale-110 hover:-rotate-2"
+            >
+              <Icon class="size-8 lg:size-10" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  function init_menu() {
+    const modal = document.getElementById("menu-modal");
+    const btn = document.getElementById("menu-btn");
+    const btnText = document.getElementById("menu-btn-text");
+    const bracketL = document.getElementById("menu-bracket-l");
+    const bracketR = document.getElementById("menu-bracket-r");
+    const headerLogo = document.getElementById("header-logo");
+    const headerLogoImg = headerLogo?.querySelector("svg");
+    const menuLinks = document.querySelectorAll(".menu-link");
+
+    if (!modal || !btn || !btnText || !bracketL || !bracketR) return;
+
+    const open = () => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+
+      modal.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      requestAnimationFrame(() => {
+        modal.style.clipPath = `circle(150% at ${cx}px ${cy}px)`;
+      });
+
+      btnText.textContent = "X";
+      bracketL.classList.replace("text-knc-600", "text-dark-950");
+      bracketR.classList.replace("text-knc-600", "text-dark-950");
+      headerLogoImg?.classList.replace("text-knc-600", "text-dark-950");
+    };
+
+    const close = () => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+
+      modal.style.clipPath = `circle(0% at ${cx}px ${cy}px)`;
+
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }, 500);
+
+      btnText.textContent = "menu";
+      bracketL.classList.replace("text-dark-950", "text-knc-600");
+      bracketR.classList.replace("text-dark-950", "text-knc-600");
+      headerLogoImg?.classList.replace("text-dark-950", "text-knc-600");
+    };
+
+    btn.addEventListener("click", () => {
+      if (modal.classList.contains("hidden")) {
+        open();
+      } else {
+        close();
+      }
+    });
+
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", close);
+    });
+  }
+
+  init_menu();
+  document.addEventListener("astro:after-swap", init_menu);
+</script>

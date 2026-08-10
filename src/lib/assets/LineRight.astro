@@ -11,20 +11,3 @@
   >
   </path>
 </svg>
-
-<style>
-  .line-right {
-    animation: draw 12s alternate both ease-in-out infinite;
-    animation-delay: 2s;
-  }
-</style>
-
-<script is:inline>
-  const lineRight = document.querySelector(".line-right") as SVGElement;
-  const length = lineRight.querySelector("path")?.getTotalLength();
-
-  if (length) {
-    lineRight.style.strokeDasharray = length.toString();
-    lineRight.style.strokeDashoffset = length.toString();
-  }
-</script>

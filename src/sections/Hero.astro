@@ -1,7 +1,7 @@
 ---
-import LineLeft from "@/lib/assets/LineLeft.astro";
-import LineRight from "@/lib/assets/LineRight.astro";
-import LineBottom from "@/lib/assets/LineBottom.astro";
+// import LineLeft from "@/lib/assets/LineLeft.astro";
+// import LineRight from "@/lib/assets/LineRight.astro";
+// import LineBottom from "@/lib/assets/LineBottom.astro";
 import Link from "@/components/Link.astro";
 import { Play, ShoppingBag, Calendar } from "@lucide/astro";
 
@@ -70,18 +70,20 @@ const marqueeItems = [...ctas, ...ctas, ...ctas];
 ---
 
 <section class="pt-24 h-svh flex flex-col items-center justify-center">
+  <!--
   <div class="fixed -z-10 size-full opacity-10 pointer-events-none">
     <LineLeft class="absolute top-0 left-0 scale-125 w-full -z-10" />
     <LineRight class="absolute top-0 left-0 scale-125 w-full -z-10" />
     <LineBottom class="absolute top-3/4 left-1/2 w-full -z-10" />
   </div>
+  -->
 
-  <h1 class="text-8xl text-center">
-    F<span class="text-knc-600">*</span>CK M<span class="text-knc-600">[</span
+  <h1 class="text-5xl lg:text-8xl text-center">
+    F<span class="text-knc-600">*</span>CK<br class="lg:hidden" /> M<span class="text-knc-600">[</span
     ><span id="face"></span><span class="text-knc-600">]</span>NDAYS
   </h1>
 
-  <div class="marquee-container flex flex-col mt-24">
+  <div class="marquee-container flex flex-col mt-12 lg:mt-24">
     <div class="marquee py-2">
       <div class="marquee__group">
         {
@@ -214,6 +216,22 @@ const marqueeItems = [...ctas, ...ctas, ...ctas];
       transform: translateX(calc(-100% - 1rem));
     }
   }
+
+  /*
+  .line-bottom {
+    animation: draw 12s alternate both ease-in-out infinite;
+    animation-delay: 4s;
+  }
+
+  .line-left {
+    animation: draw 12s alternate both ease-in-out infinite;
+  }
+
+  .line-right {
+    animation: draw 12s alternate both ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  */
 </style>
 
 <script>
@@ -255,4 +273,14 @@ const marqueeItems = [...ctas, ...ctas, ...ctas];
 
     playFace(currentIndex);
   }
+
+  /*
+  document.querySelectorAll(".line-bottom, .line-left, .line-right").forEach((line) => {
+    const length = line.querySelector("path")?.getTotalLength();
+    if (length) {
+      line.style.strokeDasharray = length.toString();
+      line.style.strokeDashoffset = length.toString();
+    }
+  });
+  */
 </script>
