@@ -28,14 +28,14 @@ const socials = [
 ];
 ---
 
-<header class="fixed z-50 w-full flex items-center justify-between p-4 lg:p-12">
+<header id="site-header" class="fixed z-10 w-full flex items-center justify-between p-4 lg:p-12">
   <a href="/" id="header-logo" class="hover:rotate-360 transition-transform duration-500">
     <EmptiedLogo class="size-18 text-knc-600" />
   </a>
 
   <button
     id="menu-btn"
-    class="cursor-pointer text-xl z-50 rotate-3 hover:rotate-6 hover:scale-110 transition-transform"
+    class="cursor-pointer text-xl z-10 rotate-3 hover:rotate-6 hover:scale-110 transition-transform"
   >
     <span id="menu-bracket-l" class="text-knc-600">[</span>
     <span id="menu-btn-text">menu</span>
@@ -45,7 +45,7 @@ const socials = [
 
 <div
   id="menu-modal"
-  class="fixed inset-0 z-40 hidden flex-col bg-knc-600 text-dark-950 px-4 transition-[clip-path] duration-500 ease-out"
+  class="fixed inset-0 z-30 hidden flex-col bg-knc-600 text-dark-950 px-4 transition-[clip-path] duration-500 ease-out"
 >
   <div class="flex h-[90%] items-center justify-center pt-12">
     <nav class="w-[85%]">
@@ -97,11 +97,12 @@ const socials = [
     const btnText = document.getElementById("menu-btn-text");
     const bracketL = document.getElementById("menu-bracket-l");
     const bracketR = document.getElementById("menu-bracket-r");
+    const header = document.getElementById("site-header");
     const headerLogo = document.getElementById("header-logo");
     const headerLogoImg = headerLogo?.querySelector("svg");
     const menuLinks = document.querySelectorAll(".menu-link");
 
-    if (!modal || !btn || !btnText || !bracketL || !bracketR) return;
+    if (!modal || !btn || !btnText || !bracketL || !bracketR || !header) return;
 
     const open = () => {
       const rect = btn.getBoundingClientRect();
@@ -116,6 +117,8 @@ const socials = [
         modal.style.clipPath = `circle(150% at ${cx}px ${cy}px)`;
       });
 
+      header.classList.add("z-40");
+      btn.classList.add("z-40");
       btnText.textContent = "X";
       bracketL.classList.replace("text-knc-600", "text-dark-950");
       bracketR.classList.replace("text-knc-600", "text-dark-950");
@@ -134,6 +137,8 @@ const socials = [
         modal.classList.remove("flex");
       }, 500);
 
+      header.classList.remove("z-40");
+      btn.classList.remove("z-40");
       btnText.textContent = "menu";
       bracketL.classList.replace("text-dark-950", "text-knc-600");
       bracketR.classList.replace("text-dark-950", "text-knc-600");

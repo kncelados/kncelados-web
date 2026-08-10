@@ -2,7 +2,7 @@
 import Link from "@/components/Link.astro";
 ---
 
-<section class="relative aspect-video w-full grid grid-cols-[30%_1fr]">
+<section class="relative aspect-[3/4] lg:aspect-video w-full grid grid-cols-1 lg:grid-cols-[30%_1fr]">
   <div
     id="image-container"
     class="absolute bg-dark-950 inset-0 w-full z-[-1] flex items-baseline"
@@ -12,8 +12,8 @@ import Link from "@/components/Link.astro";
 
   <div></div>
 
-  <div class="flex flex-col items-center justify-center gap-12 text-center">
-    <h2 class="text-7xl font-bold leading-tight -rotate-3">
+  <div class="flex flex-col items-center justify-end lg:justify-center gap-6 lg:gap-12 text-center pb-8 lg:pb-0 h-full">
+    <h2 class="text-4xl lg:text-7xl font-bold leading-snug lg:leading-tight -rotate-3">
       Participa en el <br />
       <span class="text-knc-600">[</span>Knsultorio<span class="text-knc-600"
         >]</span

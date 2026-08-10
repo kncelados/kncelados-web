@@ -19,7 +19,13 @@ const pt_opts = {
 
 export default defineConfig({
   site: BASE_URL,
-  integrations: [sitemap({ customPages }), partytown(pt_opts)],
+  integrations: [
+    sitemap({
+      customPages,
+      filter: (page) => !page.includes("/player/"),
+    }),
+    partytown(pt_opts),
+  ],
   output: "server",
   adapter: vercel(),
 

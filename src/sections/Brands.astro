@@ -29,82 +29,92 @@ const brands = [
 ---
 
 <section
-  class="py-32 gap-18 bg-knc-600 flex flex-col w-full items-center justify-center overflow-clip relative z-10"
+  class="py-16 lg:py-32 gap-8 lg:gap-16 bg-knc-600 flex flex-col w-full items-center justify-center overflow-clip relative z-20"
 >
-  <h2 class="text-4xl -rotate-3">
+  <h2 class="text-2xl lg:text-4xl -rotate-3 px-4 pt-4 lg:px-0 lg:pt-0">
     SERIA<span class="line-through decoration-dark-950 relative">
       &nbsp;IMPOSIBLE&nbsp;
     </span>SIN
   </h2>
 
-  <div class="flex gap-4 items-center">
-    {
-      brands.map((brand) => (
-        <a
-          href={brand.href}
-          target="_blank"
-          rel="sponsored noopener"
-          class="shrink-0"
-        >
-          <img
-            src={brand.src}
-            alt="brand.alt"
-            class="shrink-0 h-24 aspect-video"
-          />
-        </a>
-      ))
-    }
-    {
-      brands.map((brand) => (
-        <a
-          href={brand.href}
-          target="_blank"
-          rel="sponsored noopener"
-          aria-hidden="true"
-          class="shrink-0"
-        >
-          <img src={brand.src} alt="brand.alt" class="h-24 aspect-video" />
-        </a>
-      ))
-    }
-    {
-      brands.map((brand) => (
-        <a
-          href={brand.href}
-          target="_blank"
-          rel="sponsored noopener"
-          aria-hidden="true"
-          class="shrink-0"
-        >
-          <img
-            src={brand.src}
-            alt="brand.alt"
-            class="shrink-0 h-24 aspect-video"
-          />
-        </a>
-      ))
-    }
-    {
-      brands.map((brand) => (
-        <a
-          href={brand.href}
-          target="_blank"
-          rel="sponsored noopener"
-          aria-hidden="true"
-          class="shrink-0"
-        >
-          <img
-            src={brand.src}
-            alt="brand.alt"
-            class="shrink-0 h-24 aspect-video"
-          />
-        </a>
-      ))
-    }
+  <div class="flex w-full lg:justify-center">
+    <div class="overflow-clip w-full">
+      <div class="flex gap-4 shrink-0 animate-marquee">
+        {
+          brands.map((brand) => (
+            <a
+              href={brand.href}
+              target="_blank"
+              rel="sponsored noopener"
+              class="shrink-0"
+            >
+              <img
+                src={brand.src}
+                alt={brand.alt}
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            </a>
+          ))
+        }
+        <div aria-hidden="true" class="flex gap-4 shrink-0">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {
+            brands.map((brand) => (
+              <img
+                src={brand.src}
+                alt=""
+                class="shrink-0 h-16 lg:h-24 aspect-video"
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    width: max-content;
+    animation: marquee 20s linear infinite;
+  }
+
   h2 span::after {
     content: "mucho más dificil";
     position: absolute;
