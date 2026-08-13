@@ -12,7 +12,9 @@
 - Adapter código: @astrojs/vercel 11.0.4
 - Gestor de paquetes: bun
 - Repo: `https://github.com/verdulife/kncelados-web`
-- Repo destino: `https://github.com/kncelados/kncelados-web` (migración pendiente H5)
+- Repo: `https://github.com/kncelados/kncelados-web` (migración H5 ✓)
+- Autenticación: HTTPS + GitHub Personal Access Token (clásico, scope `repo`, 90 días expiry)
+- Cloudflare WARP bloquea SSH en este equipo — usar siempre HTTPS
 
 ## Stack — estado destino
 
@@ -44,6 +46,7 @@
 | 2026-08-10 | `trailingSlash` se mantiene en default `'ignore'` | Sirve ambas versiones (con/sin `/`) sin forzar redirects; evita perder ranking de URLs indexadas con `/` |
 | 2026-08-10 | Sitemap filtra URLs `/player/` con `filter` function | Refuerzo de la exclusión indexada en `robots.txt` (no solo en robots, también en sitemap) |
 | 2026-08-10 | No se crea `vercel.json` | No hay redirects custom más allá del www↔apex que va por DNS |
+| 2026-08-13 | Autenticación con HTTPS + PAT clásico en lugar de SSH | Cloudflare WARP en este equipo bloquea/rompe el handshake SSH después del key exchange; HTTPS con credential manager es fiable |
 
 ## Estado del upgrade
 
@@ -52,7 +55,8 @@
 - [x] Tailwind v3 → v4 migrado (ya estaba v4.0.3; actualizado a 4.3.3 junto con Astro 7)
 - [x] Adapter Netlify → Vercel (swap directo: `@astrojs/vercel` 11.0.4)
 - [x] Scripts de scrape y mystery QR verificados tras upgrade (H3): `scrape:episodes`, `scrape:collections`, `scrape:shorts`, `mystery:qr` — ejecutan sin errores, JSON/SVG válidos, árbol restaurado a limpio
-- [ ] Home rediseñada portada al proyecto actualizado
+- [x] Home rediseñada portada al proyecto actualizado (H4)
+- [x] Repo migrado a `https://github.com/kncelados/kncelados-web` (H5)
 - [ ] Deploy de prueba en Vercel (preview) validado contra checklist de URLs
 - [ ] Redirects/robots/sitemap replicados en `vercel.json`
 - [ ] Corte de DNS realizado
