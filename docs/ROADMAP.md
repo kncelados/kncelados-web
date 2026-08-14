@@ -14,8 +14,8 @@
 | | └ H4.2 Ajustar versión móvil | hecho | H4.1 | — | Responsive verificado en todas las secciones |
 | | └ H4.3 Finalizar sección Colabora en la home | hecho | — | — | Sección con contenido real (placeholder actual → diseño final) |
 | H5 | Migrar repo a nuevo GitHub exclusivo de kncelados (`github.com/kncelados/kncelados-web`) | hecho | H3, H4 | medio | Código completo en nuevo repo, commit inicial limpio (sin historial previo) |
-| H6 | Deploy a Vercel + verificación manual | pendiente | H5 | medio | Deploy funciona desde nuevo repo, todas las páginas responden 200, usuario verifica visualmente |
-| H7 | Corte DNS en IONOS (Netlify se mantiene como respaldo hasta confirmar) | pendiente | H6 | **alto** | `www.kncelados.com` sirve desde Vercel; tras confirmar, usuario borra Netlify manualmente |
+| H6 | Deploy a Vercel + verificación manual | hecho | H5 | medio | Deploy funciona desde nuevo repo, todas las páginas responden 200, usuario verifica visualmente |
+| H7 | Corte DNS en IONOS (Netlify se mantiene como respaldo hasta confirmar) | hecho | H6 | **alto** | `www.kncelados.com` sirve desde Vercel; tras confirmar, usuario borra Netlify manualmente. Además: registros de email (MX/SPF/autodiscover), `tienda` (Shopify) y `google-site-verification` recreados en Vercel DNS; envío/recepción de email verificado por el usuario |
 
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.
