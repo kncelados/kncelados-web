@@ -2,42 +2,18 @@ import "core-js/actual/object/group-by";
 import type { Metadata, Episode } from "./types";
 import slugify from "slugify";
 
-const timezone = 2;
-const currentDate = new Date();
-const currentDay = currentDate.getDate();
-const currentMonth = currentDate.getMonth();
-const currentYear = currentDate.getFullYear();
-export const currentHours = currentDate.getHours() + timezone;
-const TIME_TO_SHOW = 20;
-
 const episodes_obj: Record<string, Episode> = import.meta.glob('./episodes/*.json', { import: 'default', eager: true });
 const sortedEpisodes = Object.values(episodes_obj).sort((a, b) => b.episode - a.episode);
 
 export const episodes = sortedEpisodes.map((episode) => {
   const [_, name] = episode.title.split(' | ');
-  const episodeData = { ...episode, name };
-
-  if (!episode.createdAt) return episodeData;
-
-  const episodeDate = new Date(episode.createdAt);
-  const episodeDay = episodeDate.getDate();
-  const episodeMonth = episodeDate.getMonth();
-  const episodeYear = episodeDate.getFullYear();
-  const sameDate = currentDay === episodeDay && currentMonth === episodeMonth && currentYear === episodeYear;
-
-  if (sameDate && currentHours < TIME_TO_SHOW) {
-    return { ...episodeData, hidden: false };
-  } else {
-    return episodeData;
-  }
+  return { ...episode, name };
 });
 
 const seasons_object = Object.groupBy(episodes, ({ season }) => season);
 export const seasons = Object.values(seasons_object).reverse();
 
-const lastSeason = seasons[0]!;
-export const lastEpisode = lastSeason[0].hidden ? lastSeason[1] : lastSeason[0];
-export const hiddenEpisode = lastSeason[0].hidden ? lastSeason[0] : lastSeason[1];
+export const lastEpisode = seasons[0][0];
 
 const collections_obj: Record<string, Metadata> = import.meta.glob('./collections/*.json', { import: 'default', eager: true });
 export const collections = Object.values(collections_obj).reverse();

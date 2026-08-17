@@ -2,11 +2,9 @@
 import VideoCard from "@/components/VideoCard.astro";
 import Prev from "@/lib/assets/Prev.astro";
 import Next from "@/lib/assets/Next.astro";
-import type { Episode } from "@/lib/types";
 
 const { data, title, id } = Astro.props;
-const episodes = data.filter((episode: Episode) => !episode.hidden);
-const current_season = episodes[0].season;
+const current_season = data[0].season;
 ---
 
 <section id={id} class="relative flex w-full flex-col pt-4 lg:pt-8">
@@ -21,7 +19,7 @@ const current_season = episodes[0].season;
       <div class="w-6 shrink-0 lg:w-20"></div>
     </div>
 
-    {episodes.map((episode: Episode) => <VideoCard data={episode} />)}
+    {data.map((episode) => <VideoCard data={episode} />)}
 
     <div class="shrink-0 snap-end">
       <div class="w-6 shrink-0 lg:w-20"></div>

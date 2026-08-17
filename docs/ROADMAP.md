@@ -16,6 +16,7 @@
 | H5 | Migrar repo a nuevo GitHub exclusivo de kncelados (`github.com/kncelados/kncelados-web`) | hecho | H3, H4 | medio | Código completo en nuevo repo, commit inicial limpio (sin historial previo) |
 | H6 | Deploy a Vercel + verificación manual | hecho | H5 | medio | Deploy funciona desde nuevo repo, todas las páginas responden 200, usuario verifica visualmente |
 | H7 | Corte DNS en IONOS (Netlify se mantiene como respaldo hasta confirmar) | hecho | H6 | **alto** | `www.kncelados.com` sirve desde Vercel; tras confirmar, usuario borra Netlify manualmente. Además: registros de email (MX/SPF/autodiscover), `tienda` (Shopify) y `google-site-verification` recreados en Vercel DNS; envío/recepción de email verificado por el usuario |
+| H8 | Revisión post-migración + borrado de Netlify | pendiente | H7 | bajo | **Recordatorio: ~28/08/2026** (2 semanas desde el corte del 14/08). Si no se detectan errores (web, email, tienda), borrar el proyecto/site de Netlify manualmente |
 
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.
