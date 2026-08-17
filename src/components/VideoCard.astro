@@ -3,7 +3,7 @@ import { generateSlug } from "@/lib/utils";
 import Play from "@/lib/assets/Play.astro";
 
 const { data } = Astro.props;
-const { title, image, id } = data;
+const { title, image, url } = data;
 const slug = generateSlug(title);
 ---
 
@@ -22,7 +22,8 @@ const slug = generateSlug(title);
     class="fast-play pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500"
   >
     <a
-      href={`/player/${id}`}
+      href={url}
+      target="_blank"
       class="rounded-full bg-dark-950 p-4 text-knc-600 transition-transform hover:scale-110"
     >
       <Play class="size-12" />

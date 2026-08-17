@@ -117,9 +117,13 @@ async function main() {
 
   console.log("Obteniendo metadatos completos...");
   const meta = await ytDlpJson(WATCH_URL + latest.id);
-  const { title, description, view_count, duration, upload_date, thumbnails } = meta;
+  const { title, description } = meta;
 
   const thumbnailUrl = `https://i.ytimg.com/vi/${latest.id}/maxresdefault.jpg`;
+
+  const spotifyMatch = (description || "").match(/https:\/\/open\.spotify\.com\/episode\/\S+/);
+  const spotifyUrl = spotifyMatch ? spotifyMatch[0].split("?")[0] : null;
+  if (spotifyUrl) console.log(`Spotify link encontrado: ${spotifyUrl}`);
 
   console.log("Reescribiendo descripción con Cohere...");
   const rewritten = await remakeDescription(description || "");
@@ -135,9 +139,7 @@ async function main() {
     description: rewritten,
     image: thumbnailUrl,
     url: WATCH_URL + latest.id,
-    duration,
-    viewCount: view_count,
-    uploadDate: upload_date,
+    spotifyUrl,
   };
 
   const filename = seasonEpisodeFile(season, episode);

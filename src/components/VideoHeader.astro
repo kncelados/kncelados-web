@@ -3,7 +3,7 @@ import "@fontsource-variable/inter";
 import { generateSlug } from "@/lib/utils";
 
 const { data } = Astro.props;
-const { title, name, description, image, url, id, season, episode } = data;
+const { title, name, description, image, url, id, season, episode, spotifyUrl } = data;
 const { pathname } = Astro.url;
 ---
 
@@ -58,19 +58,22 @@ const { pathname } = Astro.url;
 
       <div class="mt-4 flex lg:mt-10">
         <a
-          href={`/player/${id}`}
-          class="bg-knc-600 rounded-xl px-8 py-3 transition-transform hover:scale-110"
-        >
-          Ver aquí
-        </a>
-
-        <a
           href={url}
           target="_blank"
-          class="px-8 py-3 transition-transform hover:scale-110"
+          class="bg-knc-600 rounded-xl px-8 py-3 transition-transform hover:scale-110"
         >
           Ver en YouTube
         </a>
+
+        {spotifyUrl && (
+          <a
+            href={spotifyUrl}
+            target="_blank"
+            class="px-8 py-3 transition-transform hover:scale-110"
+          >
+            Ver en Spotify
+          </a>
+        )}
       </div>
 
       <p class="mt-6 line-clamp-4 max-w-[60ch] text-dark-100 lg:mt-12 lg:text-lg">
