@@ -2,7 +2,8 @@ name: scrape-latest-episode
 
 on:
   schedule:
-    - cron: "10 11 * * 2"
+    - cron: "0 20 * * 1"
+      timezone: "Europe/Madrid"
   workflow_dispatch: {}
 
 permissions:
