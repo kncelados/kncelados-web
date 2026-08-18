@@ -1,35 +1,46 @@
 import { readFile, writeFile, readdir } from "node:fs/promises";
-import { execFile } from "node:child_process";
-import { promisify } from "node:util";
-import ogs from "open-graph-scraper";
 import { remakeDescription } from "./remake.js";
-
-const execFileAsync = promisify(execFile);
 
 const EPISODES_DIR = new URL("../src/lib/episodes/", import.meta.url);
 const EPISODES_JS = new URL("./episodes.js", import.meta.url);
-const CHANNEL_VIDEOS = "https://www.youtube.com/@kncelados/videos";
 const WATCH_URL = "https://www.youtube.com/watch?v=";
 const TITLE_RE = /KNC\s+(\d+)x(\d+)/;
+const UPLOADS_PLAYLIST_ID = "UU-eoLCXj4QYxuA2zaBquew";
+const API_KEY = process.env.YOUTUBE_API_KEY;
 
-async function getLatestVideo() {
-  const { stdout } = await execFileAsync("yt-dlp", [
-    "--flat-playlist",
-    "--playlist-end", "1",
-    "--print", "id",
-    "--print", "title",
-    CHANNEL_VIDEOS,
-  ]);
-  const [id, ...rest] = stdout.trim().split("\n");
-  const title = rest.join("\n");
-  if (!id) throw new Error("No se encontraron videos en el canal");
-  return { id, title };
+if (!API_KEY) {
+  console.error("Error: YOUTUBE_API_KEY no está definida en el entorno.");
+  process.exit(1);
 }
 
-async function fetchOgs(url) {
-  const { result, error } = await ogs({ url, timeout: 15 });
-  if (error) throw new Error(`ogs error: ${JSON.stringify(error)}`);
-  return result;
+async function api(endpoint, params) {
+  const url = new URL(`https://www.googleapis.com/youtube/v3/${endpoint}`);
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+  url.searchParams.set("key", API_KEY);
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`API error ${res.status}: ${await res.text()}`);
+  return res.json();
+}
+
+async function getLatestVideo() {
+  const data = await api("playlistItems", {
+    part: "snippet",
+    playlistId: UPLOADS_PLAYLIST_ID,
+    maxResults: "1",
+  });
+  const item = data.items?.[0];
+  if (!item) throw new Error("No se encontraron videos en el canal");
+  return { id: item.snippet.resourceId.videoId, title: item.snippet.title };
+}
+
+async function getVideoMeta(id) {
+  const data = await api("videos", {
+    part: "snippet,contentDetails",
+    id,
+  });
+  const item = data.items?.[0];
+  if (!item) throw new Error(`No se encontraron metadatos para ${id}`);
+  return item;
 }
 
 async function episodeExists(id) {
@@ -76,6 +87,17 @@ async function prependEpisodesJs(entry) {
   await writeFile(EPISODES_JS, updated, "utf-8");
 }
 
+function bestThumbnail(thumbnails) {
+  if (!thumbnails) return null;
+  return (
+    thumbnails.maxres?.url ||
+    thumbnails.standard?.url ||
+    thumbnails.high?.url ||
+    thumbnails.medium?.url ||
+    thumbnails.default?.url
+  );
+}
+
 async function main() {
   console.log("Buscando último video del canal...");
   const latest = await getLatestVideo();
@@ -101,19 +123,18 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("Obteniendo metadatos via open-graph-scraper...");
-  const og = await fetchOgs(WATCH_URL + latest.id);
-  const { ogTitle, ogDescription, ogImage, requestUrl } = og;
-  const description = ogDescription || "";
-  const title = ogTitle || latest.title;
-  const image = ogImage?.[0]?.url || `https://i.ytimg.com/vi/${latest.id}/maxresdefault.jpg`;
+  console.log("Obteniendo metadatos via YouTube Data API...");
+  const meta = await getVideoMeta(latest.id);
+  const { title, description, thumbnails } = meta.snippet;
+  const image = bestThumbnail(thumbnails) || `https://i.ytimg.com/vi/${latest.id}/maxresdefault.jpg`;
 
-  const spotifyMatch = description.match(/https:\/\/open\.spotify\.com\/episode\/\S+/);
+  const desc = description || "";
+  const spotifyMatch = desc.match(/https:\/\/open\.spotify\.com\/episode\/\S+/);
   const spotifyUrl = spotifyMatch ? spotifyMatch[0].split("?")[0] : null;
   if (spotifyUrl) console.log(`Spotify link encontrado: ${spotifyUrl}`);
 
   console.log("Reescribiendo descripción con Cohere...");
-  const rewritten = await remakeDescription(description);
+  const rewritten = await remakeDescription(desc);
 
   const createdAt = new Date().toISOString();
 
@@ -125,7 +146,7 @@ async function main() {
     title,
     description: rewritten,
     image,
-    url: requestUrl || WATCH_URL + latest.id,
+    url: WATCH_URL + latest.id,
     spotifyUrl,
   };
 
