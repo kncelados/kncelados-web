@@ -4,11 +4,19 @@ import slugify from "slugify";
 
 const episodes_obj: Record<string, Episode> = import.meta.glob('./episodes/*.json', { import: 'default', eager: true });
 const sortedEpisodes = Object.values(episodes_obj).sort((a, b) => b.episode - a.episode);
+const TITLE_RE = /KNC\s+\d+x\d+/;
 
-export const episodes = sortedEpisodes.map((episode) => {
-  const [_, name] = episode.title.split(' | ');
-  return { ...episode, name };
-});
+function extractName(title: string): string | undefined {
+  const parts = title.split(' | ');
+  if (parts.length === 1) return undefined;
+  if (TITLE_RE.test(parts[0])) return parts.slice(1).join(' | ');
+  return parts[0];
+}
+
+export const episodes = sortedEpisodes.map((episode) => ({
+  ...episode,
+  name: extractName(episode.title),
+}));
 
 const seasons_object = Object.groupBy(episodes, ({ season }) => season);
 export const seasons = Object.values(seasons_object).reverse();
