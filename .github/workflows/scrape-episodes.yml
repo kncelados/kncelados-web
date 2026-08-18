@@ -2,7 +2,8 @@ name: scrape-latest-episode
 
 on:
   schedule:
-    - cron: "0 18 * * 1"
+    - cron: "1 12 * * 2"
+      timezone: "Europe/Madrid"
   workflow_dispatch: {}
 
 permissions:
@@ -22,18 +23,6 @@ jobs:
 
       - name: Install yt-dlp
         run: pip install yt-dlp
-
-      - name: Wait until 20:01 Europe/Madrid
-        run: |
-          now=$(TZ=Europe/Madrid date +%s)
-          target=$(TZ=Europe/Madrid date -d "20:01" +%s)
-          delta=$(( target - now ))
-          if [ "$delta" -gt 0 ]; then
-            echo "Esperando $delta segundos hasta las 20:01 Madrid..."
-            sleep "$delta"
-          else
-            echo "Ya son las 20:01 Madrid o más tarde. Continuando."
-          fi
 
       - name: Scrape latest episode
         env:
