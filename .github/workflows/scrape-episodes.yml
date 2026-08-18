@@ -2,8 +2,7 @@ name: scrape-latest-episode
 
 on:
   schedule:
-    - cron: "1 12 * * 2"
-      timezone: "Europe/Madrid"
+    - cron: "10 11 * * 2"
   workflow_dispatch: {}
 
 permissions:
@@ -26,7 +25,7 @@ jobs:
 
       - name: Scrape latest episode
         env:
-          TOKEN: ${{ secrets.COHERE_TOKEN }}
+          CO_API_KEY: ${{ secrets.COHERE_TOKEN }}
         run: bun run scrape:latest
 
       - name: Commit and push

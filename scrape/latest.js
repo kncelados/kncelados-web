@@ -1,7 +1,8 @@
 import { readFile, writeFile, readdir } from "node:fs/promises";
-import { remakeDescription } from "./remake.js";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import ogs from "open-graph-scraper";
+import { remakeDescription } from "./remake.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -11,30 +12,24 @@ const CHANNEL_VIDEOS = "https://www.youtube.com/@kncelados/videos";
 const WATCH_URL = "https://www.youtube.com/watch?v=";
 const TITLE_RE = /KNC\s+(\d+)x(\d+)/;
 
-async function ytDlpJson(url, extraArgs = []) {
-  try {
-    const { stdout } = await execFileAsync("yt-dlp", [
-      "-J",
-      "--no-warnings",
-      ...extraArgs,
-      url,
-    ]);
-    return JSON.parse(stdout);
-  } catch (err) {
-    const stderr = err.stderr || "";
-    if (stderr.includes("members-only content") || stderr.includes("This video is available to this channel's members")) {
-      console.error("Error: el episodio sigue siendo members-only. La action debe ejecutarse después de las 19:00 cuando sea público.");
-      process.exit(1);
-    }
-    throw err;
-  }
+async function getLatestVideo() {
+  const { stdout } = await execFileAsync("yt-dlp", [
+    "--flat-playlist",
+    "--playlist-end", "1",
+    "--print", "id",
+    "--print", "title",
+    CHANNEL_VIDEOS,
+  ]);
+  const [id, ...rest] = stdout.trim().split("\n");
+  const title = rest.join("\n");
+  if (!id) throw new Error("No se encontraron videos en el canal");
+  return { id, title };
 }
 
-async function getLatestVideo() {
-  const playlist = await ytDlpJson(CHANNEL_VIDEOS, ["--flat-playlist", "--playlist-end", "1"]);
-  const entry = playlist.entries?.[0];
-  if (!entry) throw new Error("No se encontraron videos en el canal");
-  return { id: entry.id, title: entry.title };
+async function fetchOgs(url) {
+  const { result, error } = await ogs({ url, timeout: 15 });
+  if (error) throw new Error(`ogs error: ${JSON.stringify(error)}`);
+  return result;
 }
 
 async function episodeExists(id) {
@@ -59,15 +54,6 @@ function seasonEpisodeKey(season, episode) {
 
 function seasonEpisodeFile(season, episode) {
   return `${seasonEpisodeKey(season, episode)}.json`;
-}
-
-async function fileExistsForSeasonEpisode(season, episode) {
-  try {
-    await readFile(new URL(seasonEpisodeFile(season, episode), EPISODES_DIR));
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 async function getExistingEpisodeData(season, episode) {
@@ -115,18 +101,19 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("Obteniendo metadatos completos...");
-  const meta = await ytDlpJson(WATCH_URL + latest.id);
-  const { title, description } = meta;
+  console.log("Obteniendo metadatos via open-graph-scraper...");
+  const og = await fetchOgs(WATCH_URL + latest.id);
+  const { ogTitle, ogDescription, ogImage, requestUrl } = og;
+  const description = ogDescription || "";
+  const title = ogTitle || latest.title;
+  const image = ogImage?.[0]?.url || `https://i.ytimg.com/vi/${latest.id}/maxresdefault.jpg`;
 
-  const thumbnailUrl = `https://i.ytimg.com/vi/${latest.id}/maxresdefault.jpg`;
-
-  const spotifyMatch = (description || "").match(/https:\/\/open\.spotify\.com\/episode\/\S+/);
+  const spotifyMatch = description.match(/https:\/\/open\.spotify\.com\/episode\/\S+/);
   const spotifyUrl = spotifyMatch ? spotifyMatch[0].split("?")[0] : null;
   if (spotifyUrl) console.log(`Spotify link encontrado: ${spotifyUrl}`);
 
   console.log("Reescribiendo descripción con Cohere...");
-  const rewritten = await remakeDescription(description || "");
+  const rewritten = await remakeDescription(description);
 
   const createdAt = new Date().toISOString();
 
@@ -137,8 +124,8 @@ async function main() {
     id: latest.id,
     title,
     description: rewritten,
-    image: thumbnailUrl,
-    url: WATCH_URL + latest.id,
+    image,
+    url: requestUrl || WATCH_URL + latest.id,
     spotifyUrl,
   };
 
