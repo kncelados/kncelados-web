@@ -5,7 +5,6 @@ const EPISODES_DIR = new URL("../src/lib/episodes/", import.meta.url);
 const EPISODES_JS = new URL("./episodes.js", import.meta.url);
 const WATCH_URL = "https://www.youtube.com/watch?v=";
 const TITLE_RE = /KNC\s+(\d+)x(\d+)/;
-const UPLOADS_PLAYLIST_ID = "UU-eoLCXj4QYxuA2zaBquew";
 const API_KEY = process.env.YOUTUBE_API_KEY;
 
 if (!API_KEY) {
@@ -22,10 +21,21 @@ async function api(endpoint, params) {
   return res.json();
 }
 
+async function getUploadsPlaylistId() {
+  const data = await api("channels", {
+    part: "contentDetails",
+    forHandle: "@kncelados",
+  });
+  const uploadsId = data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+  if (!uploadsId) throw new Error("No se pudo obtener el uploads playlist ID del canal");
+  return uploadsId;
+}
+
 async function getLatestVideo() {
+  const uploadsId = await getUploadsPlaylistId();
   const data = await api("playlistItems", {
     part: "snippet",
-    playlistId: UPLOADS_PLAYLIST_ID,
+    playlistId: uploadsId,
     maxResults: "1",
   });
   const item = data.items?.[0];
