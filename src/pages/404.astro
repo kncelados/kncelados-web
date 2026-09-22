@@ -1,0 +1,41 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/Link.astro";
+---
+
+<Layout
+  title="Página no encontrada | Kncelados"
+  description="Esta página no existe... pero el podcast sí. Vuelve al inicio."
+>
+  <section
+    class="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-6 text-center"
+  >
+    <p class="text-primary font-title text-lg tracking-widest uppercase">
+      [ 404 ]
+    </p>
+    <h1 class="font-title text-5xl lg:text-7xl">ESTA PÁGINA NO EXISTE</h1>
+    <p class="text-secondary max-w-md font-sans text-lg">
+      O nos la inventamos y no te hemos contado. Vuelve al sitio, que por ahí
+      está lo bueno.
+    </p>
+    <div class="mt-4 flex flex-wrap items-center justify-center gap-6">
+      <Link
+        href="/"
+        label="Volver al inicio"
+        bgColor="bg-knc-600"
+        textColor="text-white"
+        icon="ri:arrow-left-line"
+      />
+      <a
+        href="/podcast"
+        class="font-title underline decoration-dotted underline-offset-4 hover:text-primary"
+        >Podcast</a
+      >
+      <a
+        href="/descargas"
+        class="font-title underline decoration-dotted underline-offset-4 hover:text-primary"
+        >Descargas</a
+      >
+    </div>
+  </section>
+</Layout>

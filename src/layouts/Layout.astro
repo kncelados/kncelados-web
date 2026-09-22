@@ -4,10 +4,14 @@ import "@fontsource/boldonse";
 import "@fontsource-variable/google-sans/wght.css";
 import "@fontsource-variable/caveat/wght.css";
 
+import bgTexture from "@/videos/bg_texture.mp4";
+
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 
 const { title, description } = Astro.props;
+const SITE = "https://www.kncelados.com";
+const canonical = new URL(Astro.url.pathname, SITE).href;
 ---
 
 <!doctype html>
@@ -20,6 +24,12 @@ const { title, description } = Astro.props;
   />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="sitemap" href="/sitemap-index.xml" />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="KNCELADOS"
+    href="/rss.xml"
+  />
   <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -28,9 +38,10 @@ const { title, description } = Astro.props;
   <title>{title}</title>
   <meta name="author" content="verdu | verdu@live.com" />
   <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
-  <meta property="og:url" content="https://www.kncelados.com" />
+  <meta property="og:url" content={canonical} />
   <meta property="og:image" content="https://www.kncelados.com/logo-512.png" />
   <meta property="og:description" content={description} />
   <meta name="twitter:card" content="summary_large_image" />
@@ -62,7 +73,19 @@ const { title, description } = Astro.props;
     }
   </script>
 
+  <slot name="head" />
+
   <body>
+    <video
+      src={bgTexture}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+      class="pointer-events-none fixed inset-0 z-[70] size-full object-cover opacity-50 mix-blend-multiply"
+    />
     <Header />
     <slot />
     <Footer />

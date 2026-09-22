@@ -16,6 +16,17 @@
 - Autenticación: HTTPS + GitHub Personal Access Token (clásico, scope `repo`, 90 días expiry)
 - Cloudflare WARP bloquea SSH en este equipo — usar siempre HTTPS
 
+## Formulario de contacto (/contacto) — H9
+
+- Endpoint `POST /api/contact` (SSR, `output: server` + adapter Vercel) en `src/pages/api/contact.ts`. Usa `fetch` directo a `https://api.resend.com/emails` — sin dependencia npm.
+- Env vars requeridas (documentadas en `.env.example`):
+  - `RESEND_API_KEY` — API key de Resend.
+  - `CONTACT_EMAIL` — email destino de los formularios (email comercial de KNCELADOS, aún sin valor real).
+  - `CONTACT_FROM_EMAIL` — opcional; si se omite el from es `Kncelados Web <CONTACT_EMAIL>`.
+- Sin env vars el endpoint responde **503 JSON** y declara el formulario como no configurado; el site no se rompe. Validación: nombre, email y mensaje obligatorios; email con regex básica.
+- Datos de formatos y casos en `src/lib/commercial.ts`. `caseStudies` está **vacío a propósito** (sin datos reales el bloque de casos de la home no se pinta). Ningún formato se declara "activo" hasta confirmar con el cliente.
+- Nav actual (Header + Footer): Inicio, Podcast, Colabora, Tienda, Descargas — Knsultorio/Eventos/KnCine Awards quedaron fuera por estar en construcción.
+
 ## Stack — estado destino
 
 - Astro: 7.1.6 ✓
@@ -51,6 +62,12 @@
 | 2026-08-14 | Registros de email recreados en Vercel DNS (MX `mx00`/`mx01.ionos.es` prio 10, TXT SPF `include:_spf-eu.ionos.com`, CNAME `autodiscover` → `adsredir.ionos.info`) | Al cambiar nameservers se pierden los registros DNS de IONOS; sin MX/SPF el email no funciona. No existían DKIM ni DMARC en IONOS → no se añadieron |
 | 2026-08-14 | Registros auxiliares recreados en Vercel DNS: CNAME `tienda` → `shops.myshopify.com`, TXT `google-site-verification=0xkX...` | `tienda.kncelados.com` (Shopify) sigue activa; la TXT mantiene verificada la propiedad de dominio en Search Console |
 | 2026-08-14 | No se añadieron a Vercel las A/AAAA de IONOS (`217.160.0.40`) ni CNAME `_domainconnect` | Son la IP de hosting antigua (rompería la web) y un registro de gestión interna de IONOS |
+| 2026-09-22 | Páginas WIP (Knsultorio, Eventos, KnCine Awards) ocultas de la nav (Header + Footer) | Decisión del usuario: no enlazar páginas en construcción; se recuperan cuando existan |
+| 2026-09-22 | Order home comercial: Hero→Next→Welcome→Últimos episodios→Marcas→Colabora→Casos→Mug→CTA final | Decisión del usuario sobre la jerarquía comercial de la home (Fase 1) |
+| 2026-09-22 | Formulario de contacto con endpoint propio + Resend (fetch directo, sin paquete npm) | Decisión del usuario; menos dependencias y control del validado |
+| 2026-09-22 | Home pasa `title`/`description` reales al `Layout` (antes vacíos: `<title></title>`) | P0 de la auditoría: SEO on-page; copy factual, sin métricas inventadas |
+| 2026-09-22 | Canonical + og:url dinámicos por página en `Layout.astro` (`new URL(Astro.url.pathname, SITE)`) | P1-6 de la auditoría: antes `og:url` fijo a la home y sin canonical global; se eliminó la duplicación del `slot="head"` de `/descargas` |
+| 2026-09-22 | `manifest.json` pasa a `#03030A` (antes `#060d14` azul antiguo) | Alinear PWA con el tema real `dark-950` |
 
 ## Estado del upgrade
 

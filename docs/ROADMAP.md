@@ -17,6 +17,19 @@
 | H6 | Deploy a Vercel + verificación manual | hecho | H5 | medio | Deploy funciona desde nuevo repo, todas las páginas responden 200, usuario verifica visualmente |
 | H7 | Corte DNS en IONOS (Netlify se mantiene como respaldo hasta confirmar) | hecho | H6 | **alto** | `www.kncelados.com` sirve desde Vercel; tras confirmar, usuario borra Netlify manualmente. Además: registros de email (MX/SPF/autodiscover), `tienda` (Shopify) y `google-site-verification` recreados en Vercel DNS; envío/recepción de email verificado por el usuario |
 | H8 | Revisión post-migración + borrado de Netlify | pendiente | H7 | bajo | **Recordatorio: ~28/08/2026** (2 semanas desde el corte del 14/08). Si no se detectan errores (web, email, tienda), borrar el proyecto/site de Netlify manualmente |
+| H9 | Web comercial — Fase 1: landing `/contacto` real, nav sin páginas WIP, hero con micro-contexto, home reordenada, endpoint de contacto (Resend) y title/description de home reales | hecho | H7 | bajo | Verificación (hecha el 22/09/2026): `astro check` 0 errores, `bun run build` completo, `/`, `/contacto`, `/podcast`, `/tienda` 200, POST `/api/contact` responde 503 hasta configurar env vars |
+| | └ F1.1 Landing `/contacto` (formulario + formatos + media kit 2024) | hecho | — | — | Página sirve 200, formulario con estados, sin placeholders visibles |
+| | └ F1.2 Nav sin WIP (Header + Footer) | hecho | — | — | Nav = Inicio, Podcast, Colabora, Tienda, Descargas |
+| | └ F1.3 Micro-contexto en hero | hecho | — | — | "El podcast de humor sin filtros" + "Cada lunes a las 20:00 h" bajo el logo |
+| | └ F1.4 Home reordenada (Hero→Next→Welcome→Expisodios→Marcas→Colabora→Casos→Mug→CTA final) | hecho | — | — | Bloque de casos oculto hasta tener datos reales |
+| | └ F1.5 Endpoint `POST /api/contact` → Resend | hecho | — | — | Valida campos, 503 sin env vars, no rompe el site |
+| | └ F1.6 Title/description reales en home | hecho | — | — | Ya no se sirve `<title></title>` ni meta vacía |
+| H10 | Web comercial — Fase 2 técnica: canonical + og:url dinámicos por página y manifest coherente con el tema | hecho | H9 | bajo | Verificación (hecha el 22/09/2026): canon=1 por página (`/`, `/contacto`, `/descargas`, `/podcast`) apuntando a `https://www.kncelados.com<ruta>`, og:url dinámico, `astro check` 0 errores, build completo. Eliminada la duplicación de canonical/og que generaba el `slot="head"` de `/descargas` |
+| | └ F2.1 Canonical + og:url dinámicos en `Layout.astro` | hecho | — | — | 1 solo canonical por página; og:url ya no queda fijo a la home |
+| | └ F2.2 Quitar canonical/og hardcodeados de `/descargas` | hecho | — | — | Sin duplicados meta en HTML servido |
+| | └ F2.3 `manifest.json` → `#03030A` | hecho | — | — | `theme_color`/`background_color` alineados con `dark-950` |
+| H11 | Web comercial — Fase 3 (comercial): métricas agregadas, 2-3 casos de éxito, formato por marca confirmado, media kit 2026 | pendiente | H10 | bajo | **Bloqueado por datos:** esperando del cliente (auditoría §G) métricas por plataforma, demografía, resultados de colaboraciones pasadas, dossier actualizado y email comercial |
 
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.
+> (`Resend` ya en uso parcial: env vars `RESEND_API_KEY`, `CONTACT_EMAIL`, `CONTACT_FROM_EMAIL`.)

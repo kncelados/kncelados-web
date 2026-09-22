@@ -1,5 +1,5 @@
 ---
-import { seasons, getCurrentEpisode, collections, shorts } from "@/lib/utils";
+import { seasons, getCurrentEpisode, collections, shorts, generateSlug } from "@/lib/utils";
 
 import Layout from "@/layouts/Layout.astro";
 import VideoHeader from "@/components/VideoHeader.astro";
@@ -9,7 +9,59 @@ const { slug } = Astro.params;
 if (!slug) return;
 
 const current_episode = getCurrentEpisode(slug);
+
+const SITE = "https://www.kncelados.com";
+
+const jsonld = current_episode
+  ? {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "VideoObject",
+          name: current_episode.name ?? current_episode.title,
+          description: current_episode.description,
+          thumbnailUrl: [current_episode.image],
+          contentUrl: current_episode.url,
+          uploadDate: current_episode.createdAt,
+          inLanguage: "es",
+          isPartOf: {
+            "@type": "PodcastSeries",
+            name: "KNCELADOS",
+            url: `${SITE}/podcast`,
+          },
+        },
+        {
+          "@type": "PodcastEpisode",
+          name: current_episode.name ?? current_episode.title,
+          description: current_episode.description,
+          url: `${SITE}/podcast/${generateSlug(current_episode.title)}`,
+          datePublished: current_episode.createdAt,
+          image: current_episode.image,
+          inLanguage: "es",
+          isPartOf: {
+            "@type": "PodcastSeries",
+            name: "KNCELADOS",
+            url: `${SITE}/podcast`,
+          },
+          ...("episode" in current_episode
+            ? {
+                episodeNumber: current_episode.episode,
+                seasonNumber: current_episode.season,
+              }
+            : {}),
+        },
+      ],
+    }
+  : null;
 ---
+
+{
+  jsonld && (
+    <Fragment slot="head">
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonld)} />
+    </Fragment>
+  )
+}
 
 <Layout
   title={current_episode && current_episode.title}

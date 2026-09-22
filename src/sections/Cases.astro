@@ -1,0 +1,33 @@
+---
+import { caseStudies } from "@/lib/commercial";
+
+/* Sin datos reales, este bloque no se pinta. Nada de placeholders en público. */
+if (caseStudies.length === 0) return;
+---
+
+<section class="flex w-full flex-col items-center gap-8 px-6 py-20 lg:py-32 lg:gap-12">
+  <h2 class="text-center text-3xl lg:text-6xl">YA LA <br />HICIMOS</h2>
+
+  <ul class="grid w-full max-w-4xl grid-cols-1 gap-6 lg:grid-cols-2">
+    {
+      caseStudies.map(({ brand, logo, what, format, content, result }) => (
+        <li class="flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+          <img src={logo} alt={brand} class="h-12 w-auto self-start" />
+          <h3 class="text-xl">{what}</h3>
+          <p class="font-sans text-sm leading-relaxed text-dark-50/70">
+            {content}
+          </p>
+          <p class="font-title text-xs uppercase text-knc-600">Formato: {format}</p>
+          {
+            result && (
+              <p class="font-sans text-sm text-dark-50/80">
+                <span class="font-title text-lg text-knc-600">{result.value}</span>{" "}
+                {result.metric} — <span class="text-dark-50/50">{result.source}</span>
+              </p>
+            )
+          }
+        </li>
+      ))
+    }
+  </ul>
+</section>

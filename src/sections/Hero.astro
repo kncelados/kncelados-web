@@ -1,267 +1,317 @@
 ---
-import LineLeft from "@/lib/assets/LineLeft.astro";
-import LineRight from "@/lib/assets/LineRight.astro";
-import LineBottom from "@/lib/assets/LineBottom.astro";
-import Link from "@/components/Link.astro";
-import { Play, ShoppingBag, Calendar } from "@lucide/astro";
+import { Eye } from "@lucide/astro";
 
-const ctas = [
-  {
-    label: "Ver podcast",
-    href: "/podcast",
-    icon: Play,
-    bgColor: "bg-knc-600",
-    textColor: "text-dark-950",
-  },
-  {
-    label: "Colabora con nosotros",
-    href: "/contacto",
-    icon: undefined,
-    bgColor: "bg-dark-800",
-    textColor: "text-dark-50",
-  },
-  {
-    label: "Comprar taza",
-    href: "https://kncelados.myshopify.com/products/taza-roja",
-    icon: ShoppingBag,
-    bgColor: "bg-knc-600",
-    textColor: "text-dark-950",
-    target: "_blank",
-  },
-  {
-    label: "Participa en el knsultorio",
-    href: "/knsultorio",
-    icon: undefined,
-    bgColor: "bg-dark-800",
-    textColor: "text-dark-50",
-  },
-  {
-    label: "Ver eventos",
-    href: "/eventos",
-    icon: Calendar,
-    bgColor: "bg-knc-600",
-    textColor: "text-dark-950",
-  },
-  {
-    label: "KnCine Awards",
-    href: "/kncine-awards",
-    icon: undefined,
-    bgColor: "bg-dark-800",
-    textColor: "text-dark-50",
-  },
-  {
-    label: "Comprar el libro",
-    href: "https://amzn.eu/d/j9PeBIn",
-    icon: ShoppingBag,
-    bgColor: "bg-knc-600",
-    textColor: "text-dark-950",
-    target: "_blank",
-  },
-  {
-    label: "Descargas",
-    href: "/descargas",
-    icon: undefined,
-    bgColor: "bg-dark-800",
-    textColor: "text-dark-50",
-  },
+import logo from "@/logo-knc.svg?url";
+import reel0 from "@/videos/reel_0.mp4";
+import reel1 from "@/videos/reel_1.mp4";
+import reel2 from "@/videos/reel_2.mp4";
+import reel3 from "@/videos/reel_3.mp4";
+import reel4 from "@/videos/reel_4.mp4";
+import reel5 from "@/videos/reel_5.mp4";
+import reel6 from "@/videos/reel_6.mp4";
+import reel7 from "@/videos/reel_7.mp4";
+import reel8 from "@/videos/reel_8.mp4";
+import reel9 from "@/videos/reel_9.mp4";
+import reel10 from "@/videos/reel_10.mp4";
+import reel11 from "@/videos/reel_11.mp4";
+import reel12 from "@/videos/reel_12.mp4";
+
+const reels = [reel0, reel1, reel2, reel3, reel4, reel5, reel6, reel7, reel8, reel9, reel10, reel11, reel12];
+
+const views = [
+  "7,5 M",
+  "480 mil",
+  "1,4 M",
+  "950 mil",
+  "2,8 M",
+  "620 mil",
+  "4,1 M",
+  "290 mil",
+  "8,6 M",
+  "1,7 M",
+  "3,4 M",
+  "550 mil",
+  "9,2 M",
 ];
 
-const marqueeItems = [...ctas, ...ctas, ...ctas];
+/* Carril izq: empieza en 0 y hace loop 0→12→0 */
+const leftOrder = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0];
+/* Carril der: empieza en 7, da la vuelta hasta el 6 y vuelve a 7 */
+const rightOrder = [7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7];
 ---
 
-<section class="pt-24 h-svh flex flex-col items-center justify-center">
-  <div class="fixed -z-10 size-full opacity-10 pointer-events-none">
-    <LineLeft class="absolute top-0 left-0 scale-125 w-full -z-10" />
-    <LineRight class="absolute top-0 left-0 scale-125 w-full -z-10" />
-    <LineBottom class="absolute top-3/4 left-1/2 w-full -z-10" />
-  </div>
-
-  <h1 class="text-5xl lg:text-8xl text-center">
-    F<span class="text-knc-600">*</span>CK<br class="lg:hidden" /> M<span class="text-knc-600">[</span
-    ><span id="face"></span><span class="text-knc-600">]</span>NDAYS
-  </h1>
-
-  <div class="marquee-container flex flex-col mt-12 lg:mt-24">
-    <div class="marquee py-2">
-      <div class="marquee__group">
+<section id="hero" class="relative isolate h-screen overflow-hidden bg-dark-950">
+  <div
+    id="hero-rails"
+    aria-hidden="true"
+    class="absolute inset-0 z-10 pointer-events-none select-none"
+  >
+    <div class="carousel carousel-drift-left absolute -rotate-12 left-4 opacity-50 lg:left-16 lg:opacity-100">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
         {
-          marqueeItems.map((cta) => (
-            <Link
-              href={cta.href}
-              label={cta.label}
-              bgColor={cta.bgColor}
-              textColor={cta.textColor}
-              icon={cta.icon}
-              target={cta.target}
-            />
+          [...leftOrder, ...leftOrder].map((clip) => (
+            <div class="carousel-item">
+              <video
+                class="carousel-video"
+                src={reels[clip]}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                tabindex="-1"
+              />
+              <div class="carousel-views">
+                <Eye class="size-3.5" />
+                <span>{views[clip]}</span>
+              </div>
+            </div>
           ))
         }
-      </div>
-      <div class="marquee__group" aria-hidden="true">
-        {
-          marqueeItems.map((cta) => (
-            <Link
-              href={cta.href}
-              label={cta.label}
-              bgColor={cta.bgColor}
-              textColor={cta.textColor}
-              icon={cta.icon}
-              target={cta.target}
-            />
-          ))
-        }
+        </div>
       </div>
     </div>
 
-    <div class="marquee marquee--reverse py-2" aria-hidden="true">
-      <div class="marquee__group">
+    <div class="carousel carousel-drift-right absolute hidden rotate-12 right-4 opacity-50 lg:block lg:right-16 lg:opacity-100">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
         {
-          marqueeItems.map((cta) => (
-            <Link
-              href={cta.href}
-              label={cta.label}
-              bgColor={cta.bgColor}
-              textColor={cta.textColor}
-              icon={cta.icon}
-              target={cta.target}
-            />
+          [...rightOrder, ...rightOrder].map((clip) => (
+            <div class="carousel-item">
+              <video
+                class="carousel-video"
+                src={reels[clip]}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                tabindex="-1"
+              />
+              <div class="carousel-views">
+                <Eye class="size-3.5" />
+                <span>{views[clip]}</span>
+              </div>
+            </div>
           ))
         }
+        </div>
       </div>
-      <div class="marquee__group" aria-hidden="true">
-        {
-          marqueeItems.map((cta) => (
-            <Link
-              href={cta.href}
-              label={cta.label}
-              bgColor={cta.bgColor}
-              textColor={cta.textColor}
-              icon={cta.icon}
-              target={cta.target}
-            />
-          ))
-        }
-      </div>
+    </div>
+  </div>
+
+  <div
+    aria-hidden="true"
+    class="vignette pointer-events-none absolute inset-0 z-[15]"
+  ></div>
+
+  <div class="relative z-20 flex h-full flex-col items-center justify-center gap-8 px-6 lg:gap-10">
+    <h1 class="hero-logo flex items-center justify-center select-none">
+      <img src={logo} alt="KNCELADOS" class="h-auto w-[min(92vw,80rem)] drop-shadow-[0_0_10px_#03030A]" />
+    </h1>
+
+    <p class="max-w-3xl px-4 text-center font-sans text-lg text-dark-50/85 lg:text-xl">
+      El podcast de humor <span class="font-title text-knc-600">[</span>sin
+      filtros<span class="font-title text-knc-600">]</span>
+      <span class="mt-1.5 block text-sm text-dark-50/60 lg:text-base">
+        Cada lunes a las 20:00 h, o un día antes en nuestro canal de YouTube.
+      </span>
+    </p>
+
+    <div class="flex flex-col items-center justify-center gap-4 sm:flex-row lg:gap-6">
+      <a
+        href="/contacto"
+        class="rounded-full bg-knc-600 px-10 py-3.5 text-lg text-dark-50 uppercase transition-transform duration-300 hover:-rotate-2 hover:scale-105"
+      >
+        Contactar
+      </a>
+      <a
+        href="/podcast"
+        class="rounded-full border border-white/25 px-10 py-3.5 text-lg text-dark-50 uppercase transition-colors duration-300 hover:border-white/70 hover:bg-white/10"
+      >
+        Ver podcast
+      </a>
     </div>
   </div>
 </section>
 
 <style>
-  #face {
-    display: inline-block;
-    width: 0;
-    height: 2em;
+  .carousel {
+    top: -20vh;
+    bottom: -20vh;
+    box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.8);
+  }
+
+  .carousel-viewport {
+    --clip-h: 50vh;
+    position: relative;
+    width: calc(var(--clip-h) * 9 / 16);
+    height: 100%;
     overflow: hidden;
-    vertical-align: middle;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    opacity: 0;
-    transform: scale(1.5);
-    transition:
-      width 0.4s ease-in-out,
-      opacity 0.3s ease-in-out;
   }
 
-  .marquee-container {
-    width: 100%;
-    overflow: clip;
-    mask-image: linear-gradient(
-      to left,
-      transparent,
-      black 20%,
-      black 80%,
-      transparent
-    );
-  }
-
-  .marquee {
+  .carousel-track {
     display: flex;
-    overflow: clip;
-    user-select: none;
-    gap: 1rem;
-    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    will-change: transform;
   }
 
-  .marquee__group {
-    flex-shrink: 0;
+  .carousel-track.sliding {
+    transition: transform 600ms cubic-bezier(0.45, 0, 0.25, 1);
+  }
+
+  .carousel-item {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    height: var(--clip-h);
+    overflow: visible;
+  }
+
+  .carousel-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+  }
+
+  .carousel-views {
+    position: absolute;
+    left: 0.5rem;
+    bottom: 0.5rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    animation: scroll-x 80s linear infinite;
+    gap: 0.3rem;
+    border-radius: 9999px;
+    padding: 0.25rem 0.55rem;
+    background: rgb(3 3 10 / 0.72);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
   }
 
-  .marquee:hover .marquee__group {
-    animation-play-state: paused;
+  .vignette {
+    background: radial-gradient(ellipse at center, transparent 40%, rgb(3 3 10 / 0.85) 100%);
   }
 
-  .marquee--reverse .marquee__group {
-    animation-direction: reverse;
-    animation-delay: -3s;
+  .carousel-drift-left {
+    animation: drift-left 90s ease-in-out infinite;
+  }
+
+  .carousel-drift-right {
+    animation: drift-right 60s ease-in-out infinite;
+  }
+
+  @keyframes drift-left {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(10vw);
+    }
+  }
+
+  @keyframes drift-right {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-10vw);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .marquee__group {
-      animation-play-state: paused;
+    .carousel-drift-left,
+    .carousel-drift-right {
+      animation: none;
     }
   }
-
-  @keyframes scroll-x {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(calc(-100% - 1rem));
-    }
-  }
-
 </style>
 
 <script>
-  const $face = document.querySelector("#face") as HTMLSpanElement;
-  const faces = [
-    "/rup.webp",
-    "/dani.webp",
-    "/ander.webp",
-    "/verdu.webp",
-    "/ruth.webp",
-    "/jose.webp",
-  ].sort(() => Math.random() - 0.5);
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const T = reduce ? 0 : 600;
 
-  if ($face) {
-    let currentIndex = 0;
-    const showDuration = 3200;
-    const shrinkDuration = 800;
+  function initReel(win: HTMLElement) {
+    const stage = win.querySelector<HTMLElement>(".carousel-track")!;
+    const cards = Array.from(win.querySelectorAll<HTMLElement>(".carousel-item"));
+    const videos = Array.from(win.querySelectorAll<HTMLVideoElement>(".carousel-video"));
+    const len = cards.length / 2;
 
-    const playFace = (index: number) => {
-      $face.style.backgroundImage = `url('${faces[index]}')`;
-      $face.style.width = "0";
-      $face.style.opacity = "0";
+    let pos = 0;
+    let scheduled = false;
+    let lastAdvance = performance.now();
 
-      requestAnimationFrame(() => {
-        $face.style.width = "2em";
-        $face.style.opacity = "1";
-      });
-
-      window.setTimeout(() => {
-        $face.style.width = "0";
-        $face.style.opacity = "0";
-
-        window.setTimeout(() => {
-          const nextIndex = (index + 1) % faces.length;
-          playFace(nextIndex);
-        }, shrinkDuration);
-      }, showDuration);
+    const cardH = () => cards[0].offsetHeight;
+    /* Desplazamiento para que la card `pos` quede centrada en la ventana */
+    const centerOff = () => (win.clientHeight - cardH()) / 2;
+    const trackY = (p: number) => centerOff() - cards[p].offsetTop;
+    const apply = () => {
+      stage.style.transform = `translateY(${trackY(pos)}px)`;
     };
 
-    playFace(currentIndex);
+    /* Card de inicio: la primera que, centrada, tiene card(s) de relleno arriba */
+    const startPos = () =>
+      Math.max(1, Math.min(len - 1, Math.ceil(centerOff() / cardH())));
+
+    pos = startPos();
+    const resetAt = () => startPos() + len;
+
+    const slide = (toPos: number) => {
+      lastAdvance = performance.now();
+      scheduled = true;
+      videos[toPos % len]?.load();
+      if (!reduce) stage.classList.add("sliding");
+      stage.style.transform = `translateY(${trackY(toPos)}px)`;
+
+      window.setTimeout(() => {
+        if (toPos === resetAt()) {
+          /* Mismo contenido que el inicio -> salto limpio sin transición */
+          stage.classList.remove("sliding");
+          pos = startPos();
+          apply();
+        } else {
+          pos = toPos;
+        }
+        scheduled = false;
+      }, T);
+    };
+
+    const poll = () => {
+      const v = videos[pos];
+      if (
+        !scheduled &&
+        performance.now() - lastAdvance >= 3000 &&
+        v &&
+        v.duration &&
+        !v.paused &&
+        v.duration - v.currentTime <= 0.5
+      ) {
+        slide(pos + 1);
+      }
+    };
+
+    videos.forEach((v) => {
+      v.addEventListener("timeupdate", poll);
+      v.addEventListener("loadedmetadata", poll);
+    });
+
+    apply();
+    videos[pos].muted = true;
+    videos[pos].play().catch(() => {});
   }
 
-  document.querySelectorAll(".line-bottom, .line-left, .line-right").forEach((line) => {
-    const length = line.querySelector("path")?.getTotalLength();
-    if (length) {
-      line.style.strokeDasharray = length.toString();
-      line.style.strokeDashoffset = length.toString();
-    }
+  document.querySelectorAll<HTMLElement>(".carousel-viewport").forEach(initReel);
+
+  document.addEventListener("astro:after-swap", () => {
+    document.querySelectorAll<HTMLElement>(".carousel-viewport").forEach(initReel);
   });
 </script>

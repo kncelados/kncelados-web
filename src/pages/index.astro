@@ -1,24 +1,27 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Brands from "@/sections/Brands.astro";
-import Colaborate from "@/sections/Colaborate.astro";
-import Events from "@/sections/Events.astro";
+import Cases from "@/sections/Cases.astro";
+import Collaborations from "@/sections/Collaborations.astro";
+import FinalCta from "@/sections/FinalCta.astro";
 import Hero from "@/sections/Hero.astro";
-import KncineAwarads from "@/sections/KncineAwarads.astro";
-import Knsultorio from "@/sections/Knsultorio.astro";
+import Latest from "@/sections/Latest.astro";
 import Mug from "@/sections/Mug.astro";
 import Next from "@/sections/Next.astro";
 import Welcome from "@/sections/Welcome.astro";
 ---
 
-<Layout>
+<Layout
+  title="KNCELADOS | El podcast de humor sin filtros"
+  description="KNCELADOS es un podcast de humor sin filtros con nuevos episodios cada lunes a las 20:00 h en YouTube y Spotify. No venimos a educar a nadie: venimos a hacerte reír."
+>
   <Hero />
-  <Welcome />
   <Next />
-  <Mug />
-  <Knsultorio />
-  <!-- <Events /> -->
+  <Welcome />
+  <Latest />
   <Brands />
-  <!-- <KncineAwarads /> -->
-  <!-- <Colaborate /> -->
+  <Collaborations />
+  <Cases />
+  <Mug />
+  <FinalCta />
 </Layout>

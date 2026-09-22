@@ -1,0 +1,10 @@
+---
+import VideoSlider from "@/components/VideoSlider.astro";
+import { seasons } from "@/lib/utils";
+
+const latest = seasons[0].slice(0, 5);
+---
+
+<section class="flex w-full flex-col gap-4 pt-16 lg:pt-24 lg:gap-8">
+  <VideoSlider data={latest} title={`Últimos episodios`} />
+</section>

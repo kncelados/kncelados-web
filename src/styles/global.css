@@ -23,7 +23,7 @@
   --color-dark-700: oklch(42.6% 0.045 220.1);
   --color-dark-800: oklch(38% 0.038 222.3);
   --color-dark-900: oklch(33.6% 0.032 224.3);
-  --color-dark-950: oklch(14.2% 0.007 232.4);
+  --color-dark-950: #03030A;
 
   --font-sans: "Google Sans Variable", sans-serif;
   --font-title: "Boldonse", sans-serif;
