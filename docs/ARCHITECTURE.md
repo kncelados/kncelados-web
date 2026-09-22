@@ -21,10 +21,11 @@
 - Endpoint `POST /api/contact` (SSR, `output: server` + adapter Vercel) en `src/pages/api/contact.ts`. Usa `fetch` directo a `https://api.resend.com/emails` — sin dependencia npm.
 - Env vars requeridas (documentadas en `.env.example`):
   - `RESEND_API_KEY` — API key de Resend.
-  - `CONTACT_EMAIL` — email destino de los formularios (email comercial de KNCELADOS, aún sin valor real).
+  - `CONTACT_EMAIL` — email destino de los formularios. Valor real confirmado (MediaKit 2026): `hola@kncelados.com`.
   - `CONTACT_FROM_EMAIL` — opcional; si se omite el from es `Kncelados Web <CONTACT_EMAIL>`.
 - Sin env vars el endpoint responde **503 JSON** y declara el formulario como no configurado; el site no se rompe. Validación: nombre, email y mensaje obligatorios; email con regex básica.
-- Datos de formatos y casos en `src/lib/commercial.ts`. `caseStudies` está **vacío a propósito** (sin datos reales el bloque de casos de la home no se pinta). Ningún formato se declara "activo" hasta confirmar con el cliente.
+- Datos de formatos y casos en `src/lib/commercial.ts`. `caseStudies` está **vacío a propósito** (sin datos reales el bloque de casos de la home no se pinta). Formatos y métricas reales del **MediaKit 2026** (fuente: `docs/research/mediakit-2026.md`).
+- Media kit público en `/knc-media-kit-publico-2026.pdf` (dossier 2026 **sin precios**, generado a partir de los datos del kit; el PDF original con precios NO se sirve en la web). Fuera `public/knc_dossier-web_2024.pdf` (obsoleto, no referenciado).
 - Nav actual (Header + Footer): Inicio, Podcast, Colabora, Tienda, Descargas — Knsultorio/Eventos/KnCine Awards quedaron fuera por estar en construcción.
 
 ## Stack — estado destino
@@ -68,6 +69,9 @@
 | 2026-09-22 | Home pasa `title`/`description` reales al `Layout` (antes vacíos: `<title></title>`) | P0 de la auditoría: SEO on-page; copy factual, sin métricas inventadas |
 | 2026-09-22 | Canonical + og:url dinámicos por página en `Layout.astro` (`new URL(Astro.url.pathname, SITE)`) | P1-6 de la auditoría: antes `og:url` fijo a la home y sin canonical global; se eliminó la duplicación del `slot="head"` de `/descargas` |
 | 2026-09-22 | `manifest.json` pasa a `#03030A` (antes `#060d14` azul antiguo) | Alinear PWA con el tema real `dark-950` |
+| 2026-09-22 | Métricas y formatos del MediaKit 2026 publicados en la web (sin precios); bloque de métricas dentro de Collaborations en la home | Datos reales del kit aportado por el cliente; el PDF con precios NO es descargable (decisión del usuario) |
+| 2026-09-22 | Media kit público en `/knc-media-kit-publico-2026.pdf`; eliminado `knc_dossier-web_2024.pdf` y su enlace | Dossier 2026 sin precios como descargable público; no exponer la versión de negociación con precios |
+| 2026-09-22 | Email comercial confirmado: `hola@kncelados.com` (de `CONTACT_EMAIL` en el formulario y visible en `/contacto`) | Fuente: MediaKit 2026, págs. 1 y 7 |
 
 ## Estado del upgrade
 

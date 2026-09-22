@@ -28,7 +28,7 @@
 | | └ F2.1 Canonical + og:url dinámicos en `Layout.astro` | hecho | — | — | 1 solo canonical por página; og:url ya no queda fijo a la home |
 | | └ F2.2 Quitar canonical/og hardcodeados de `/descargas` | hecho | — | — | Sin duplicados meta en HTML servido |
 | | └ F2.3 `manifest.json` → `#03030A` | hecho | — | — | `theme_color`/`background_color` alineados con `dark-950` |
-| H11 | Web comercial — Fase 3 (comercial): métricas agregadas, 2-3 casos de éxito, formato por marca confirmado, media kit 2026 | pendiente | H10 | bajo | **Bloqueado por datos:** esperando del cliente (auditoría §G) métricas por plataforma, demografía, resultados de colaboraciones pasadas, dossier actualizado y email comercial |
+| H11 | Web comercial — Fase 3 (comercial): métricas agregadas, 2-3 casos de éxito, formato por marca confirmado, media kit 2026 | pendiente | H10 | bajo | **Parcialmente desbloqueado (22/09/2026):** datos del MediaKit 2026 aportados por el cliente. Hecho: métricas reales en home, 3 formatos confirmados (sin precios), email `hola@kncelados.com`, media kit público (`/knc-media-kit-publico-2026.pdf`). **Sigue bloqueado:** casos de éxito reales (2-3) con resultados. Verificación pendiente: `astro check` + build + revisión visual |
 
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.
