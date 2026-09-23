@@ -1,11 +1,122 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import UnderConstruction from "@/components/UnderConstruction.astro";
+import { ArrowRight } from "@lucide/astro";
 ---
 
-<Layout
-  title="Knsultorio"
-  description="El Knsultorio de Kncelados."
->
-  <UnderConstruction title="Knsultorio" />
+<Layout title="Knsultorio" description="El Knsultorio de Kncelados.">
+  <section
+    id="formulario"
+    class="flex min-h-[80vh] w-full flex-col items-center justify-center gap-8 px-6 pt-40 pb-24"
+  >
+    <h1 class="text-center text-4xl leading-tight lg:text-7xl">
+      <span class="text-knc-600">[</span>Knsultorio<span class="text-knc-600">]</span>
+    </h1>
+    <p class="font-sans text-center text-lg text-dark-50/70 lg:text-xl">
+      ¿Tienes alguna consulta, un chisme o simplemente quieres contarnos algo?
+      Escríbenos.
+    </p>
+
+    <form
+      id="knsultorio-form"
+      class="mt-4 flex w-full max-w-xl flex-col gap-4"
+      novalidate
+    >
+      <div class="flex flex-col gap-2">
+        <label for="nombre" class="pl-4 font-title text-sm uppercase">
+          Tu nombre
+        </label>
+        <input
+          id="nombre"
+          name="nombre"
+          type="text"
+          required
+          placeholder="Como en el grupo de WhatsApp"
+          class="rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3 font-sans text-dark-50 placeholder:text-dark-50/40 focus:border-knc-600 focus:outline-none"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="email" class="pl-4 font-title text-sm uppercase">Tu email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          placeholder="donde@respondemos.com"
+          class="rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3 font-sans text-dark-50 placeholder:text-dark-50/40 focus:border-knc-600 focus:outline-none"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="mensaje" class="pl-4 font-title text-sm uppercase">
+          Tu mensaje
+        </label>
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          rows="5"
+          required
+          placeholder="Escribe tu mensaje…"
+          class="rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3 font-sans text-dark-50 placeholder:text-dark-50/40 focus:border-knc-600 focus:outline-none"
+        ></textarea>
+      </div>
+
+      <div class="mt-2 flex items-center justify-between gap-4">
+        <p
+          id="form-status"
+          class="font-sans text-sm text-dark-50/60"
+          role="status"
+        >
+        </p>
+        <button
+          type="submit"
+          id="form-submit"
+          class="inline-flex items-center gap-3 rounded-full bg-knc-600 px-8 py-3 text-lg text-dark-50 uppercase transition-transform duration-300 hover:-rotate-2 hover:scale-105"
+        >
+          Enviar <ArrowRight class="size-5" />
+        </button>
+      </div>
+    </form>
+  </section>
 </Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#knsultorio-form");
+  const status = document.querySelector<HTMLParagraphElement>("#form-status");
+  const submit = document.querySelector<HTMLButtonElement>("#form-submit");
+
+  if (!form || !status || !submit) throw new Error("formulario no encontrado");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    status.textContent = "Mandando…";
+    submit.disabled = true;
+
+    try {
+      const res = await fetch("/api/knsultorio", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const json = await res.json().catch(() => null);
+
+      if (res.ok) {
+        status.textContent = "¡Bombazo! Hemos recibido tu mensaje.";
+        form.reset();
+      } else if (res.status === 503) {
+        status.textContent =
+          "Ups, aún estamos configurando este canal. Escríbenos por redes mientras tanto.";
+      } else {
+        status.textContent = json?.error ?? "Algo ha fallado. Reinténtalo.";
+      }
+    } catch {
+      status.textContent =
+        "Algo ha fallado. Reinténtalo o escríbenos por redes.";
+    } finally {
+      submit.disabled = false;
+    }
+  });
+</script>

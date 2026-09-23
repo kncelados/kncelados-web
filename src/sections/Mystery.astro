@@ -1,5 +1,92 @@
+---
+import Link from "@/components/Link.astro";
+import Next from "@/lib/assets/Next.astro";
+---
+
 <section
-  class="flex w-full flex-col items-center gap-8 px-6 py-20 lg:gap-12 lg:py-32"
+  id="mystery"
+  class="relative flex w-full flex-col items-center px-6 py-20 lg:py-32"
 >
-  <h2 class="max-w-3xl text-center text-3xl lg:text-6xl">MYSTERY</h2>
+  <article
+    class="flex w-full max-w-6xl flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16"
+  >
+    <div class="flex shrink-0 items-center justify-center lg:w-1/2">
+      <div class="relative">
+        <img
+          aria-hidden="true"
+          src="/libro-mystery.png"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          class="book-float-back absolute -top-6 left-6 z-0 h-80 w-auto opacity-70 drop-shadow-2xl sm:h-96 lg:h-[34rem]"
+        />
+        <div class="book-float relative z-10 origin-center">
+          <img
+            src="/libro-mystery.png"
+            alt="Libro Mystery de Kncelados"
+            loading="lazy"
+            decoding="async"
+            class="h-80 w-auto drop-shadow-2xl sm:h-96 lg:h-[34rem]"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center gap-6 text-center lg:w-1/2 lg:items-start lg:text-left">
+      <h2 class="text-4xl leading-normal lg:text-6xl">
+        DESCUBRE<br />MYSTERY
+      </h2>
+
+      <p class="max-w-xl text-lg text-dark-300 lg:text-2xl">
+        Un libro lleno de acertijos, retos y misterios para resolver con los
+        chicos de Kncelados. Perfecto para exprimir el coco, reírse a lo tonto y
+        descubrir que los lunes hasta pueden molar. ¿Te atreves a resolverlos
+        todos?
+      </p>
+
+      <Link
+        href="https://www.amazon.es/Mystery-fantasma-crucero-acertijos-apasionantes/dp/8410442663"
+        label="Comprar en Amazon"
+        target="_blank"
+        icon={Next}
+      />
+    </div>
+  </article>
 </section>
+
+<style>
+  .book-float {
+    animation: book-float 6s ease-in-out infinite;
+  }
+
+  @keyframes book-float {
+    0%,
+    100% {
+      transform: rotate(-2deg) translateY(0);
+    }
+    50% {
+      transform: rotate(2deg) translateY(-12px);
+    }
+  }
+
+  .book-float-back {
+    animation: book-float-back 8s ease-in-out infinite;
+  }
+
+  @keyframes book-float-back {
+    0%,
+    100% {
+      transform: rotate(7deg) translateY(8px);
+    }
+    50% {
+      transform: rotate(-4deg) translateY(-18px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .book-float,
+    .book-float-back {
+      animation: none;
+    }
+  }
+</style>

@@ -1,69 +1,202 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Link from "@/components/Link.astro";
 import {
   ArrowRight,
-  CalendarDays,
   Clapperboard,
   MessageSquare,
-  Mic,
-  Package,
   Share2,
   Sparkles,
-  Zap,
 } from "@lucide/astro";
-import { formats } from "@/lib/commercial";
+import Instagram from "@/lib/assets/Instagram.astro";
+import Tiktok from "@/lib/assets/Tiktok.astro";
+import Youtube from "@/lib/assets/Youtube.astro";
+import Facebook from "@/lib/assets/Facebook.astro";
+import Spotify from "@/lib/assets/Spotify.astro";
+import {
+  audienceFacts,
+  collabConcepts,
+  collabPhilosophyAccent,
+  collabPhilosophyLead,
+  platformFollowers,
+  spotifyMetric,
+  totalFollowers,
+} from "@/lib/commercial";
 
-const icons = [
-  Clapperboard,
-  Mic,
-  Package,
-  Sparkles,
-  Share2,
-  CalendarDays,
-  Zap,
-  MessageSquare,
-];
+const platformMeta = {
+  instagram: { Icon: Instagram, label: "Instagram" },
+  tiktok: { Icon: Tiktok, label: "TikTok" },
+  youtube: { Icon: Youtube, label: "YouTube" },
+  facebook: { Icon: Facebook, label: "Facebook" },
+} as const;
+
+const formatFollowers = (n: number): string => {
+  if (n >= 1_000_000) {
+    const v = n / 1_000_000;
+    const s = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
+    return s.replace(".", ",") + "M";
+  }
+  return Math.round(n / 1_000) + "K";
+};
+
+const totalLabel = formatFollowers(totalFollowers);
+
+const factRotations = ["rotate-1", "-rotate-1", "rotate-2", "-rotate-2"];
+const conceptRotations = ["-rotate-1", "rotate-1", "rotate-2", "-rotate-2"];
+const conceptIcons = [Clapperboard, Share2, Sparkles, MessageSquare];
 ---
 
 <Layout
   title="Colabora | Kncelados"
-  description="¿Quieres meter tu marca en la conversación de KNCELADOS? Descarga el MediaKit 2026 y descubre vídeo corto, patrocinio de sección y product placement. Hablamos."
+  description="¿Quieres meter tu marca en la conversación de KNCELADOS? Un podcast de humor sin filtros con más de 1M de seguidores, episodios de +90 minutos y una comunidad que se queda. Escríbenos a hola@kncelados.com."
 >
-  <section class="relative flex min-h-[80vh] flex-col items-center justify-center gap-8 px-6 pt-40 pb-24 text-center">
-    <p class="font-title text-lg text-knc-600 lg:text-xl">[ Colabora ]</p>
-    <h1 class="max-w-4xl text-5xl leading-tight lg:text-9xl">¿HABLAMOS?</h1>
-    <p class="max-w-2xl font-sans text-lg text-dark-50/80 lg:text-2xl">
-      No somos una agencia. Somos un podcast de humor sin filtros que la gente
-      se ve en serio. METE TU MARCA EN LA CONVERSACIÓN, sin guion corporativo y
-      sin corbata.
-    </p>
-    <a
-      href="#formulario"
-      class="mt-4 rounded-full bg-knc-600 px-10 py-3.5 text-lg text-dark-50 uppercase transition-transform duration-300 hover:-rotate-2 hover:scale-105"
-    >
-      Cuéntanos tu idea
-    </a>
+  <section
+    class="relative flex w-full flex-col items-center gap-16 px-6 pt-44 pb-28 lg:px-12 lg:pt-56 lg:pb-36"
+  >
+    <div class="flex flex-col items-center gap-6 text-center">
+      <h1 class="text-5xl leading-[0.95] tracking-tight sm:text-6xl lg:text-8xl">
+        TU MARCA<br />TAMBIÉN TIENE<br /><span class="text-knc-600">SITIO</span> AQUÍ
+      </h1>
+      <p class="max-w-xl font-sans text-lg leading-relaxed text-dark-50/80 lg:text-2xl">
+        No queremos que tu marca parezca un anuncio. Queremos que parezca una de
+        las nuestras.
+      </p>
+    </div>
+
+    <div class="relative w-full max-w-3xl">
+      <img
+        src="/foto-colabora.png"
+        alt="El equipo de Kncelados"
+        class="aspect-video w-full rotate-1 rounded-3xl border border-white/15 object-cover shadow-[0_24px_60px_-24px_rgb(0_0_0/0.8)]"
+      />
+    </div>
   </section>
 
-  <section class="flex w-full flex-col items-center gap-4 px-6 pb-8 lg:gap-8">
-    <h2 class="max-w-3xl text-center text-3xl lg:text-6xl">
-      QUÉ PODEMOS<br />HACER JUNTOS
+  <section
+    class="flex w-full flex-col items-center gap-8 border-y border-white/10 bg-white/[0.02] px-6 py-20 lg:gap-12 lg:py-28"
+  >
+    <h2 class="text-center text-3xl lg:text-6xl">
+      NUESTROS<br />NÚMEROS
     </h2>
 
-    <ul class="mt-4 grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
+    <div
+      class="grid w-full max-w-5xl grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 lg:gap-6"
+    >
       {
-        formats.map(({ label, desc }, i) => {
-          const Icon = icons[i % icons.length];
+        platformFollowers.map(({ id, followers }) => {
+          const { Icon, label } = platformMeta[id];
+          return (
+            <div
+              class="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-4 py-5 lg:gap-3 lg:rounded-3xl lg:p-6"
+            >
+              <Icon class="size-5 text-dark-50/80 lg:size-8" />
+              <p class="font-title text-4xl sm:text-3xl lg:text-5xl">
+                {formatFollowers(followers)}
+              </p>
+              <p
+                class="font-sans text-[10px] uppercase tracking-wide text-dark-50/60 lg:text-sm"
+              >
+                {label}
+              </p>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div
+      class="flex w-full max-w-5xl items-center justify-center gap-3 rounded-3xl border border-knc-600/40 bg-knc-600/10 px-10 py-8"
+    >
+      <p class="font-title text-4xl lg:text-6xl">+{totalLabel}</p>
+      <p class="font-title text-4xl text-knc-600 lg:text-6xl">SEGUIDORES</p>
+    </div>
+
+    <div class="flex flex-col items-center gap-2 text-center">
+      <div class="flex items-center gap-2">
+        <Spotify class="size-5 text-dark-50/70" />
+        <p class="font-title text-lg lg:text-xl">
+          {spotifyMetric.value}{" "}
+          <span class="text-sm text-dark-50/60 lg:text-base">
+            {spotifyMetric.label}
+          </span>
+        </p>
+        {
+          spotifyMetric.dynamic && (
+            <p class="font-hand text-xl text-knc-600">y sigue subiendo ↑</p>
+          )
+        }
+      </div>
+      <p class="font-sans text-xs text-dark-50/50">
+        Spotify no suma al total: son escuchas, no seguidores. Se actualiza
+        cuando cambian.
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="flex w-full flex-col items-center gap-8 px-6 py-20 lg:gap-12 lg:py-28"
+  >
+    <div class="flex flex-col items-center gap-1 text-center">
+      <h2 class="max-w-3xl text-3xl lg:text-6xl">
+        QUIÉN SE QUEDA<br />A ESCUCHARNOS
+      </h2>
+      <p class="font-hand rotate-1 text-2xl text-knc-600 lg:text-3xl">
+        esto no son followers, es público real
+      </p>
+    </div>
+
+    <ul
+      class="grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+    >
+      {
+        audienceFacts.map((fact, i) => (
+          <li
+            class={`flex flex-col gap-2 rounded-3xl border border-white/10 bg-white/[0.03] p-6 ${factRotations[i % factRotations.length]}`}
+          >
+            <p class="font-hand text-4xl text-knc-600 lg:text-5xl">
+              {fact.title}
+            </p>
+            <p class="font-sans text-sm leading-relaxed text-dark-50/70">
+              {fact.desc}
+            </p>
+            {
+              fact.confirmed && (
+                <p
+                  class="mt-auto pt-3 font-sans text-[10px] uppercase tracking-widest text-dark-50/40"
+                >
+                  dato del MediaKit 2026
+                </p>
+              )
+            }
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section
+    class="flex w-full flex-col items-center gap-10 border-y border-white/10 bg-white/[0.02] px-6 py-20 lg:gap-14 lg:py-28"
+  >
+    <h2 class="max-w-3xl text-center text-3xl lg:text-6xl">
+      QUÉ PODEMOS<br />HACER <span class="text-knc-600">JUNTOS</span>
+    </h2>
+
+    <ul
+      class="grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+    >
+      {
+        collabConcepts.map(({ title, desc }, i) => {
+          const Icon = conceptIcons[i % conceptIcons.length];
           return (
             <li
-              class="group flex items-start gap-5 rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-knc-600/60"
+              class={`group flex flex-col gap-4 rounded-3xl border border-white/10 bg-black/20 p-6 ${conceptRotations[i % conceptRotations.length]}`}
             >
-              <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-knc-600 text-dark-950">
+              <span
+                class="flex size-12 items-center justify-center rounded-full bg-knc-600 text-dark-950"
+              >
                 <Icon class="size-6" />
               </span>
-              <div class="flex flex-col gap-1">
-                <h3 class="text-lg lg:text-xl">{label}</h3>
+              <div class="flex flex-col gap-2">
+                <h3 class="text-lg lg:text-xl">{title}</h3>
                 <p class="font-sans text-sm leading-relaxed text-dark-50/70">
                   {desc}
                 </p>
@@ -74,177 +207,32 @@ const icons = [
       }
     </ul>
 
-    <p class="max-w-xl pt-4 text-center font-sans text-sm text-dark-50/60">
-      Los formatos y las condiciones se confirman caso a caso, con el presupuesto
-      encima de la mesa. ¿Estás pensando en otra cosa? Cuéntanos: no hacemos solo
-      esto, pero esto es con lo que más nos divertimos.
-    </p>
-  </section>
-
-  <section class="flex w-full flex-col items-center gap-6 px-6 py-20 lg:py-32">
-    <h2 class="text-center text-3xl lg:text-6xl">
-      ¿QUIERES TODOS<br />LOS DATOS?
-    </h2>
-    <div class="flex flex-col items-center gap-6">
-      <Link
-        href="/knc-media-kit-publico-2026.pdf"
-        label="DESCARGAR MEDIA KIT (2026)"
-        bgColor="bg-knc-600"
-        textColor="text-dark-950"
-        download
-      />
-      <p class="text-center font-sans text-xs text-dark-50/50">
-        Cifras y formatos de la temporada 4, sin los precios de la versión de
-        negociación. ¿Los quieres completos? Escríbenos a{" "}
-        <a
-          href="mailto:hola@kncelados.com"
-          class="text-knc-600 hover:underline"
-        >
-          hola@kncelados.com
-        </a>
-        .
+    <blockquote class="max-w-3xl text-center">
+      <p
+        class="font-hand -rotate-1 text-4xl leading-[1.05] text-dark-50 lg:text-6xl"
+      >
+        “{collabPhilosophyLead}{" "}
+        <span class="text-knc-600">{collabPhilosophyAccent}”</span>
       </p>
-    </div>
+    </blockquote>
   </section>
 
   <section
-    id="formulario"
-    class="flex w-full flex-col items-center gap-8 border-t border-white/10 px-6 py-20 lg:py-32"
+    class="flex w-full flex-col items-center gap-8 px-6 py-24 lg:gap-10 lg:py-36"
   >
-    <h2 class="text-center text-3xl lg:text-6xl">
-      HABLEMOS SIN<br /><span class="text-knc-600">[</span>COMPROMISO
-      <span class="text-knc-600">]</span>
-    </h2>
-    <p class="max-w-xl text-center font-sans text-dark-50/70">
-      Cuatro campos y te pedimos que no nos cuentes tu plan de negocio. Si hay
-      feeling, lo hablamos en 48 h.
-    </p>
-
-    <form
-      id="contact-form"
-      class="mt-4 flex w-full max-w-xl flex-col gap-4"
-      novalidate
-    >
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div class="flex flex-col gap-2">
-          <label for="nombre" class="font-title text-sm uppercase">
-            Tu nombre
-          </label>
-          <input
-            id="nombre"
-            name="nombre"
-            type="text"
-            required
-            placeholder="Como en el grupo de WhatsApp"
-            class="rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3 font-sans text-dark-50 placeholder:text-dark-50/40 focus:border-knc-600 focus:outline-none"
-          />
-        </div>
-        <div class="flex flex-col gap-2">
-          <label for="empresa" class="font-title text-sm uppercase">
-            Empresa
-          </label>
-          <input
-            id="empresa"
-            name="empresa"
-            type="text"
-            placeholder="La tuya o la que te paga"
-            class="rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3 font-sans text-dark-50 placeholder:text-dark-50/40 focus:border-knc-600 focus:outline-none"
-          />
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label for="email" class="font-title text-sm uppercase">Tu email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          placeholder="donde@respondemos.com"
-          class="rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3 font-sans text-dark-50 placeholder:text-dark-50/40 focus:border-knc-600 focus:outline-none"
-        />
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label for="tipo" class="font-title text-sm uppercase">
-          Qué te interesa
-        </label>
-        <select
-          id="tipo"
-          name="tipo"
-          class="rounded-2xl border border-white/15 bg-dark-950 px-4 py-3 font-sans text-dark-50 focus:border-knc-600 focus:outline-none"
-        >
-          <option value="" selected>Elige una opción…</option>
-          {formats.map(({ label }) => <option value={label}>{label}</option>)}
-          <option value="Otra cosa">Otra cosa (te escuchamos)</option>
-        </select>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label for="mensaje" class="font-title text-sm uppercase">
-          Tu mensaje
-        </label>
-        <textarea
-          id="mensaje"
-          name="mensaje"
-          rows="4"
-          required
-          placeholder="Idea, presupuesto, fechas… lo que sea. Tú suelta, nosotros escuchamos."
-          class="rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3 font-sans text-dark-50 placeholder:text-dark-50/40 focus:border-knc-600 focus:outline-none"
-        ></textarea>
-      </div>
-
-      <div class="mt-2 flex items-center justify-between gap-4">
-        <p id="form-status" class="font-sans text-sm text-dark-50/60" role="status"></p>
-        <button
-          type="submit"
-          id="form-submit"
-          class="inline-flex items-center gap-3 rounded-full bg-knc-600 px-8 py-3 text-lg text-dark-50 uppercase transition-transform duration-300 hover:-rotate-2 hover:scale-105"
-        >
-          Enviar <ArrowRight class="size-5" />
-        </button>
-      </div>
-    </form>
+    <div class="flex flex-col items-center gap-4 lg:flex-row lg:gap-6">
+      <a
+        href="mailto:hola@kncelados.com"
+        class="inline-flex items-center gap-4 rounded-full bg-knc-600 px-12 py-5 text-2xl text-dark-50 uppercase transition-transform duration-300 hover:-rotate-2 hover:scale-105 lg:px-16 lg:py-6 lg:text-3xl"
+      >
+        Contactar <ArrowRight class="size-6 lg:size-7" />
+      </a>
+      <a
+        href="mailto:hola@kncelados.com"
+        class="font-sans text-lg text-dark-50/70 transition-colors hover:text-dark-50 lg:text-xl"
+      >
+        hola@kncelados.com
+      </a>
+    </div>
   </section>
 </Layout>
-
-<script>
-  const form = document.querySelector<HTMLFormElement>("#contact-form");
-  const status = document.querySelector<HTMLParagraphElement>("#form-status");
-  const submit = document.querySelector<HTMLButtonElement>("#form-submit");
-
-  if (!form || !status || !submit) throw new Error("formulario no encontrado");
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const data = Object.fromEntries(new FormData(form).entries());
-    status.textContent = "Mandando…";
-    submit.disabled = true;
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const json = await res.json().catch(() => null);
-
-      if (res.ok) {
-        status.textContent =
-          "¡Bombazo! Hemos recibido tu mensaje. Te respondemos en 48 h.";
-        form.reset();
-      } else if (res.status === 503) {
-        status.textContent =
-          "Ups, aún estamos configurando este canal. Escríbenos por redes mientras tanto.";
-      } else {
-        status.textContent = json?.error ?? "Algo ha fallado. Reinténtalo.";
-      }
-    } catch {
-      status.textContent = "Algo ha fallado. Reinténtalo o escríbenos por redes.";
-    } finally {
-      submit.disabled = false;
-    }
-  });
-</script>

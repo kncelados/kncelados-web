@@ -60,3 +60,102 @@ export interface CaseStudy {
 /** Casos de éxito. Vacío a propósito: solo se publica información real.
  *  Nada de placeholders a la vista. */
 export const caseStudies: CaseStudy[] = [];
+
+export interface PlatformFollowers {
+  id: "instagram" | "tiktok" | "youtube" | "facebook";
+  followers: number;
+}
+
+/** Seguidores por plataforma (cifras actuales aportadas por el equipo, sept. 2026).
+ *  Valores numéricos: la presentación la hace el front, y `totalFollowers` se
+ *  recalcula solo. */
+export const platformFollowers: PlatformFollowers[] = [
+  { id: "instagram", followers: 459_000 },
+  { id: "tiktok", followers: 502_000 },
+  { id: "youtube", followers: 152_000 },
+  { id: "facebook", followers: 123_000 },
+];
+
+/** Suma real de seguidores (IG + TikTok + YT + FB). No se hardcodea. */
+export const totalFollowers = platformFollowers.reduce(
+  (sum, p) => sum + p.followers,
+  0,
+);
+
+export interface SpotifyMetric {
+  value: string;
+  label: string;
+  dynamic: boolean;
+}
+
+/** Spotify se muestra aparte: son escuchas, no seguidores (no suma al total). */
+export const spotifyMetric: SpotifyMetric = {
+  value: "35K",
+  label: "escuchas/mes",
+  dynamic: true,
+};
+
+export interface AudienceFact {
+  title: string;
+  desc: string;
+  confirmed: boolean;
+}
+
+/** Hechos de audiencia (fuente: MediaKit 2026). Son cualidades de la audiencia,
+ *  no contadores de followers (sección "Nuestra audiencia"). `confirmed` marca
+ *  qué hechos vienen del kit (verdad conocida) frente a futuros pendientes. */
+export const audienceFacts: AudienceFact[] = [
+  {
+    title: "25-34 años",
+    desc: "La franja dominante en todas las plataformas (34-40% del público).",
+    confirmed: true,
+  },
+  {
+    title: "España",
+    desc: "75% del público de YouTube y 91% del de Spotify es español.",
+    confirmed: true,
+  },
+  {
+    title: "+90 min",
+    desc: "Capítulo largo semanal que la gente consume entero, no troceado.",
+    confirmed: true,
+  },
+  {
+    title: "Comunidad activa",
+    desc: "846K interacciones en IG, 96K likes en shorts: comentan y comparten.",
+    confirmed: true,
+  },
+];
+
+export interface CollabConcept {
+  title: string;
+  desc: string;
+}
+
+/** Conceptos de colaboración (brief del rediseño de /contacto). Los formatos
+ *  concretos ya viven en `formats`; aquí está la conversación, no el catálogo. */
+export const collabConcepts: CollabConcept[] = [
+  {
+    title: "Contenido",
+    desc: "Vídeo corto, sección patrocinada o product placement natural. El formato se elige con tu marca, no en tu contra.",
+  },
+  {
+    title: "Redes",
+    desc: "Una campaña cruza TikTok, Instagram, YouTube y Spotify. Tu marca habla donde la gente ya está.",
+  },
+  {
+    title: "Acciones",
+    desc: "Lanzamientos, sorteos y sorpresas. Lo hecho con humor y sin guion es lo que la gente recuerda.",
+  },
+  {
+    title: "Ideas",
+    desc: "¿Tienes una idea rara? Cuéntanosla. En Kncelados, la rara suele ser la buena.",
+  },
+];
+
+/** Mensaje central de la sección de colaboraciones (brief del rediseño).
+ *  Se parte en dos para destacar solo el final en el acento de marca. */
+export const collabPhilosophyLead =
+  "No queremos meter un anuncio dentro de un podcast.";
+export const collabPhilosophyAccent =
+  "Queremos meter tu marca dentro de la conversación.";

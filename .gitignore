@@ -24,3 +24,10 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# logs y resultados de pruebas locales (no subir)
+server-test.log
+server-test*.log
+telegram_ask_result.txt
+telegram_ask_result_*.txt
+telegram_ask_result*.txt

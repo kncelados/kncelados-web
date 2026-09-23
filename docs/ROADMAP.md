@@ -33,6 +33,13 @@
 | | └ Orden nuevo: Hero→Next→Welcome→Episodios→Colabora→Marcas→Knsultorio→Mug→Mystery→KnCine→Stats→MeteTuMarca→CTA | hecho | — | — | Copy nuevo: claim Hero `text-xl/lg:text-2xl`, botones `px-12 py-4`, Welcome "Cuatro amigos… cero filtros" con iconos de red, MARCA en rojo, header sin sombra con menú abierto |
 | | └ FIX slider "Episodios recientes": `slice(0,5)` → `slice(0,15)` | hecho | — | — | Con 5 cards no había desbordamiento y el slider no deslizaba; 15 cards ≈ 5800px desbordan en pantallas reales |
 
+| H13 | Web comercial — Landing "Colabora" (`/contacto`) rediseñada | hecho | H11 | bajo | Verificación (23/09/2026): `astro check` 0 errores, `bun run build` completo, `/contacto` 200. Cifras actuales (IG 459K, FB 123K, TikTok 502K, YT 152K, total 1,2M) y CTA final por mailto a `hola@kncelados.com`. Datos centralizados en `commercial.ts` |
+| | └ H13.1 Datos dinámicos en `src/lib/commercial.ts` (`platformFollowers` + `totalFollowers` por suma + `audienceFacts` + `collabConcepts` + filosofía partida en lead/accent) | hecho | — | — | Sin cifras hardcodeadas en la página; Spotify como métrica dinámica separada (escuchas ≠ seguidores) |
+| | └ H13.2 Icono `Facebook.astro` nuevo | hecho | — | — | Con el 5 de plataformas (IG/TikTok/YT/FB/Spotify) completo en "Nuestros números" |
+| | └ H13.3 Página respondiendo al feedback (23/09): hero sin etiqueta `[ Colabora ]`, números en una línea con Boldonse, `JUNTOS` y final de la filosofía en acento, CTA único CONTACTAR mailto | hecho | — | — | Formulario, `¿HABLAMOS?`, `HABLEMOS SIN COMPROMISO` y media kit eliminados de la página; `/api/contact` queda en el repo sin uso |
+| | └ H13.4 Foto de grupo en el hero | hecho | — | — | Usuario entregó `public/foto-colabora.png` (1724×912); sustituye al collage de retratos |
+| | └ H13.5 Feedback ronda 2 (23/09): hero centrado en columna única con más padding (`pt-44 pb-28` / `lg:pt-56 lg:pb-36`, `gap-16`, foto `max-w-3xl`); números de plataforma a `lg:text-6xl`; bloque total `+1,2M SEGUIDORES` en una línea y mismo tamaño (`text-4xl lg:text-6xl`, SEGUIDORES en acento) | hecho | — | — | Verificado: `astro check` 0 errores, build completo, `/contacto` 200 |
+
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.
 > (`Resend` ya en uso parcial: env vars `RESEND_API_KEY`, `CONTACT_EMAIL`, `CONTACT_FROM_EMAIL`.)

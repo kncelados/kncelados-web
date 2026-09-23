@@ -106,15 +106,20 @@ const rightOrder = [7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7];
     class="vignette pointer-events-none absolute inset-0 z-[15]"
   ></div>
 
+  <div
+    aria-hidden="true"
+    class="hero-fade pointer-events-none absolute inset-x-0 bottom-0 z-[16]"
+  ></div>
+
   <div class="relative z-20 flex h-full flex-col items-center justify-center gap-8 px-6 lg:gap-10">
     <h1 class="hero-logo flex items-center justify-center select-none">
       <img src={logo} alt="KNCELADOS" class="h-auto w-[min(92vw,80rem)] drop-shadow-[0_0_10px_#03030A]" />
     </h1>
 
     <p
-      class="max-w-3xl px-4 text-center font-sans text-xl leading-relaxed text-dark-50/85 lg:text-2xl"
+      class="max-w-4xl px-4 text-center font-sans text-3xl leading-relaxed text-dark-50/85 lg:text-4xl"
     >
-      Tu dosis semanal de humor para un mundo que no da tregua
+      Si sobrevives a los lunes, nos vemos a las 20:00 h
     </p>
 
     <div class="flex flex-col items-center justify-center gap-4 sm:flex-row lg:gap-6">
@@ -196,6 +201,11 @@ const rightOrder = [7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7];
 
   .vignette {
     background: radial-gradient(ellipse at center, transparent 40%, rgb(3 3 10 / 0.85) 100%);
+  }
+
+  .hero-fade {
+    height: 35vh;
+    background: linear-gradient(to top, var(--color-dark-950) 0%, transparent 100%);
   }
 
   .carousel-drift-left {

@@ -28,6 +28,21 @@
 - Media kit público en `/knc-media-kit-publico-2026.pdf` (dossier 2026 **sin precios**, generado a partir de los datos del kit; el PDF original con precios NO se sirve en la web). Fuera `public/knc_dossier-web_2024.pdf` (obsoleto, no referenciado).
 - Nav actual (Header + Footer): Inicio, Podcast, Colabora, Tienda, Descargas — Knsultorio/Eventos/KnCine Awards quedaron fuera por estar en construcción.
 
+## Formulario del Knsultorio (/knsultorio) — activación Resend (23/09)
+
+- El formulario de `src/pages/knsultorio/index.astro` hace `POST /api/knsultorio` (`src/pages/api/knsultorio.ts`), que ya envía por Resend a `knsultorio@gmail.com` con `reply_to` del usuario.
+- Env vars necesarias (documentadas en `.env.example`): `RESEND_API_KEY`, `CONTACT_EMAIL` (`hola@kncelados.com`), `CONTACT_FROM_EMAIL`. Localmente en `.env` (gitignored); en Vercel pendiente de cargar.
+- **Dominio del remitente**: decisión del usuario (23/09) = verificar el **subdominio `mail.kncelados.com`** en Resend para NO tocar el SPF del dominio raíz (`v=spf1 include:_spf-eu.ionos.com ~all`, MX `mx00/mx01.ionos.es`, correo IONOS intacto). El from en producción será `Kncelados <hola@mail.kncelados.com>`.
+- **Pendiente (bloqueante, lo hace el usuario en Resend)**: verificar `mail.kncelados.com` (DKIM TXT `resend._domainkey.mail`, TXT `mail` = `v=spf1 include:spf.resend.com ~all`, y MX/CNAME de tracking si Resend lo pide, todo en Vercel DNS). Sin dominio verificado Resend solo permite enviar al email de la cuenta (`kncelados@gmail.com`); el endpoint responde 502. La API key ya probada (**HTTP 200** enviando a `kncelados@gmail.com`).
+
+## Landing "Colabora" (/contacto) — H13
+
+- Página en 5 secciones tras el feedback del usuario (23/09/2026): **Hero** (TU MARCA TAMBIÉN TIENE SITIO AQUÍ, **centrado en columna única con padding amplio** — texto arriba, `public/foto-colabora.png` abajo con `max-w-3xl`), **Nuestros números** (4 plataformas en una línea, tipografía Boldonse, cifras `lg:text-6xl`), **Nuestra audiencia**, **Colaboraciones** (`JUNTOS` y el final de la frase en acento) y **CTA final** (botón CONTACTAR → `mailto:hola@kncelados.com`, total `+1,2M SEGUIDORES` en una línea y mismo tamaño).
+- Los datos viven en `src/lib/commercial.ts`: `platformFollowers` (IG 459K, TikTok 502K, YT 152K, FB 123K — cifras actuales aportadas por el equipo, sept. 2026), `totalFollowers` (suma calculada → +1,2M), `spotifyMetric` (35K escuchas/mes, dinámica, NO suma al total), `audienceFacts` (4 hechos con flag `confirmed`), `collabConcepts` y `collabPhilosophyLead`/`collabPhilosophyAccent`. Nada de cifras hardcodeadas: si cambia `platformFollowers`, el total se recalcula solo.
+- Iconos de red en `src/lib/assets/`: Instagram, Tiktok, Youtube, **Facebook (nuevo H13)**, Spotify.
+- El formulario y `¿HABLAMOS?` se eliminaron de la página por decisión del usuario: el contacto es un botón mailto. El endpoint `POST /api/contact` (Resend, H9) se conserva en el repo **sin uso** en `/contacto`.
+- La foto de grupo `public/foto-colabora.png` (1724×912) sustituyó al antiguo collage de 6 retratos.
+
 ## Stack — estado destino
 
 - Astro: 7.1.6 ✓
@@ -78,6 +93,21 @@
 | 2026-09-23 | Slider "Episodios recientes" muestra las 15 cards más recientes (`slice(0, 15)`); spacer final eliminado | Con 5 cards no había desbordamiento → flechas/drag no-op; decisión de conteo del usuario: "15 más recientes" |
 | 2026-09-23 | Logo header pierde el glow al abrir el menú (clase `.no-shadow`, transición 500ms) | Sombra 10px sobre el panel oscuro del menú abierto se veía sucia (FASE 2) |
 | 2026-09-23 | Meta description de home: se mantiene "Más de 150K suscriptores" | Decisión del usuario: copy SEO factual, no visible en página |
+| 2026-09-23 | Landing "Colabora" (`/contacto`) rediseñada en 5 secciones (Hero, Números, Audiencia, Colaboraciones, CTA final); el formulario y su endpoint quedan intactos | Hito H13 aprobado por el usuario (rediseño de `/contacto`); media kit como enlace secundario en el CTA final |
+| 2026-09-23 | Números publicados del MediaKit 2026: IG 493K · TikTok 443K · YT 150K · FB 113K · Spotify 35K escuchas/mes · total 1,2M (suma) | Usuario eligió "MediaKit 2026 si hay dudas"; el IG real verificable online (~458K) está más cerca del kit (493K) que del brief |
+| 2026-09-23 | Datos de la landing centralizados en `commercial.ts`: `platformFollowers`, `totalFollowers` (calculado por suma), `spotifyMetric` (dinámica), `audienceFacts` (flag `confirmed`), `collabConcepts` | El total se recalcula solo si cambian las cifras; las páginas no llevan números hardcodeados (preparado para datos dinámicos) |
+| 2026-09-23 | Audiencia publicada como "25-34 años" (MediaKit 2026) en lugar de "18-34" (brief) | El kit confirma 25-34 dominante en todas las plataformas (34-40%); criterio del usuario: "si dudas, usa el MediaKit" |
+| 2026-09-23 | Hero con collage de los 6 retratos de `public/`; foto de grupo pendiente del usuario | No existe foto de grupo; al recibirla se sustituye el bloque collage (sin romper la página) |
+| 2026-09-23 | Nuevo icono `src/lib/assets/Facebook.astro` | Faltaba el logo de Facebook para "Nuestros números"; patrón de `Instagram.astro`/`Tiktok.astro` (fill `currentColor`, `Astro.props.class`)
+| 2026-09-23 | `/contacto`: fuera el formulario (5 campos + `<script>` de envío), `¿HABLAMOS?`, `HABLEMOS SIN COMPROMISO` y el enlace de descarga del media kit; CTA final = único botón CONTACTAR `mailto:hola@kncelados.com`. `POST /api/contact` se mantiene en el repo sin uso | Decisión del usuario (feedback visual sobre la landing): contacto directo por email, más óptimo que el formulario |
+| 2026-09-23 | Hero sin etiqueta `[ Colabora ]` y con foto única `public/foto-colabora.png` (foto de grupo entregada) en `aspect-video rotate-1`; texto-izquierda / imagen-derecha | Feedback del usuario; sustituye al collage de 6 retratos |
+| 2026-09-23 | Números en una sola línea (`grid-cols-4`, compacto en móvil) con tipografía Boldonse (incluido el total `+1,2M`); fuera la nota "los que importan, del MediaKit 2026" | Feedback del usuario (los números eran el punto más flojo de la landing) |
+| 2026-09-23 | `platformFollowers` actualizado a cifras del equipo (IG 459K, FB 123K, TikTok 502K, YT 152K) — el total se recalcula solo a +1,2M | Cifras "live" aportadas por el usuario el 23/09/2026; `metrics` (MediaKit) queda intacto en `commercial.ts` sin mostrarse |
+| 2026-09-23 | Filosofía de colaboración: `collabPhilosophyLead`/`collabPhilosophyAccent` separados; en página texto blanco, interlineado `leading-[1.05]`, solo "Queremos meter tu marca dentro de la conversación" en acento | Feedback del usuario sobre la cita central de la landing |
+| 2026-09-23 | Hero de `/contacto` centrado en columna única (texto arriba / foto abajo, como el de la home) con más padding: `pt-44 pb-28` / `lg:pt-56 lg:pb-36`, `gap-16`, texto `text-center` y foto `max-w-3xl` (mantiene `aspect-video rotate-1`) | Feedback ronda 2 del usuario: "más padding y que quede centrado" (el hero iba en split texto-izquierda/imagen-derecha) |
+| 2026-09-23 | Números de plataforma en "Nuestros números" un punto más pequeños: `text-2xl lg:text-7xl` → `lg:text-6xl`; bloque total en una sola línea `+1,2M SEGUIDORES` con el mismo tamaño (`text-4xl lg:text-6xl`, SEGUIDORES en acento) | Feedback ronda 2 del usuario: números "un poco más pequeños" y total "en una línea, mismo tamaño" |
+| 2026-09-23 | Resend para el Knsultorio: verificar el **subdominio `mail.kncelados.com`** (no tocar el SPF del dominio raíz); from = `Kncelados <hola@mail.kncelados.com>` | Decisión del usuario (vía Telegram): prefiere no tocar el SPF de `kncelados.com` que ya incluye IONOS |
+| 2026-09-23 | `RESEND_API_KEY` cargada en `.env` local (gitignored) y key probada vía directa a Resend (HTTP 200, envío a `kncelados@gmail.com`) | Configurar el envío real del formulario del Knsultorio; sin dominio verificado Resend limita el envío al email de la cuenta |
 
 ## Estado del upgrade
 
