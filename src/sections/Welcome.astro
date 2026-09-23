@@ -1,3 +1,11 @@
+---
+import Link from "@/components/Link.astro";
+import Youtube from "@/lib/assets/Youtube.astro";
+import Spotify from "@/lib/assets/Spotify.astro";
+import Instagram from "@/lib/assets/Instagram.astro";
+import Tiktok from "@/lib/assets/Tiktok.astro";
+---
+
 <section
   class="relative aspect-video w-full flex flex-col items-center justify-center"
 >
@@ -15,15 +23,35 @@
   </div>
 
   <p class="text-center max-w-4xl px-4 font-normal text-2xl lg:text-5xl leading-tight">
-    Kncelados no es un <span class="text-knc-600 font-semibold">[</span
-    >podcast<span class="text-knc-600 font-semibold">]</span>, es 10 que pasa
-    cuando juntas a seis personas que se olvidaron de filtrar 10 que piensan.
-    Aquí no venimos a educar a nadie, venimos a decir las barbaridades que tú
-    solo te atreves a pensar en el grupo de whatsapp. Si te ofendes, es que no
-    has entendido nada; si te ríes, bienvenido a la <span
-      class="text-knc-600 font-semibold">[</span
-    >resistencia<span class="text-knc-600 font-semibold">]</span>.
+    Cuatro amigos, un podcast, <span class="text-knc-600 font-semibold">cero filtros</span>
   </p>
+
+  <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:gap-6">
+    <Link
+      href="https://www.youtube.com/@kncelados"
+      label="YouTube"
+      icon={Youtube}
+      target="_blank"
+    />
+    <Link
+      href="https://open.spotify.com/show/5bDQAbJUSdfHYdii8A8eX0"
+      label="Spotify"
+      icon={Spotify}
+      target="_blank"
+    />
+    <Link
+      href="https://www.instagram.com/kncelados"
+      label="Instagram"
+      icon={Instagram}
+      target="_blank"
+    />
+    <Link
+      href="https://www.tiktok.com/@kncelados"
+      label="TikTok"
+      icon={Tiktok}
+      target="_blank"
+    />
+  </div>
 </section>
 
 <style>

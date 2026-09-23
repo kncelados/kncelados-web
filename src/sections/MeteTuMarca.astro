@@ -1,0 +1,23 @@
+---
+import Link from "@/components/Link.astro";
+import { ArrowRight } from "@lucide/astro";
+---
+
+<section class="flex w-full flex-col items-center gap-8 px-6 py-20 lg:gap-12 lg:py-32">
+  <h2 class="max-w-3xl text-center text-3xl lg:text-6xl">
+    METE TU <span class="text-knc-600">MARCA</span><br />EN LA CONVERSACIÓN
+  </h2>
+
+  <p class="max-w-2xl text-center font-sans text-lg text-dark-50/75 lg:text-xl">
+    Colaboramos con <span class="text-knc-600">marcas</span> que entienden que
+    el humor mueve masas.
+  </p>
+
+  <Link
+    href="/contacto"
+    label="Hablemos"
+    bgColor="bg-knc-600"
+    textColor="text-dark-950"
+    icon={ArrowRight}
+  />
+</section>

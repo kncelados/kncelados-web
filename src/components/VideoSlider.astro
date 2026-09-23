@@ -13,17 +13,13 @@ const current_season = data[0].season;
   </h2>
 
   <div
-    class="slider snap flex h-44 w-full snap-x snap-mandatory scroll-p-6 items-center gap-1 overflow-x-auto lg:h-72 lg:scroll-p-20"
+    class="slider snap flex h-44 w-full snap-x snap-mandatory scroll-pl-6 items-center gap-1 overflow-x-auto lg:h-72 lg:scroll-pl-20"
   >
     <div class="shrink-0 snap-start">
       <div class="w-6 shrink-0 lg:w-20"></div>
     </div>
 
     {data.map((episode) => <VideoCard data={episode} />)}
-
-    <div class="shrink-0 snap-end">
-      <div class="w-6 shrink-0 lg:w-20"></div>
-    </div>
 
     <button
       class="prev absolute left-0 z-20 hidden h-full bg-gradient-to-b from-transparent via-black/30 to-transparent lg:inline [&>svg]:hover:scale-110"
@@ -54,14 +50,15 @@ const current_season = data[0].season;
 
       prev.addEventListener("click", () => {
         slider.scrollBy({
-          left: -slide.clientWidth * 2,
+          left: Math.max(0 - slider.scrollLeft, -slide.clientWidth),
           behavior: "smooth",
         });
       });
 
       next.addEventListener("click", () => {
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
         slider.scrollBy({
-          left: slide.clientWidth * 2,
+          left: Math.min(maxScroll - slider.scrollLeft, slide.clientWidth),
           behavior: "smooth",
         });
       });

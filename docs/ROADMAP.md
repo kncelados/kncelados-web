@@ -29,6 +29,9 @@
 | | └ F2.2 Quitar canonical/og hardcodeados de `/descargas` | hecho | — | — | Sin duplicados meta en HTML servido |
 | | └ F2.3 `manifest.json` → `#03030A` | hecho | — | — | `theme_color`/`background_color` alineados con `dark-950` |
 | H11 | Web comercial — Fase 3 (comercial): métricas agregadas, 2-3 casos de éxito, formato por marca confirmado, media kit 2026 | pendiente | H10 | bajo | **Parcialmente desbloqueado (22/09/2026):** datos del MediaKit 2026 aportados por el cliente. Hecho: métricas reales en home, 3 formatos confirmados (sin precios), email `hola@kncelados.com`, media kit público (`/knc-media-kit-publico-2026.pdf`). **Sigue bloqueado:** casos de éxito reales (2-3) con resultados. Verificación pendiente: `astro check` + build + revisión visual |
+| H12 | Reestructuración home a 13 secciones + ajustes FASE 2-6 + fix overflow slider | hecho | H11 | bajo | Verificación (23/09/2026): `astro check` 0 errores, `bun run build` completo, home sirve 200 con las 13 secciones, slider pinta 15 cards (artículos 6→16). Feature doc: `odd/tasks/fase1-reestructuracion-home.md` |
+| | └ Orden nuevo: Hero→Next→Welcome→Episodios→Colabora→Marcas→Knsultorio→Mug→Mystery→KnCine→Stats→MeteTuMarca→CTA | hecho | — | — | Copy nuevo: claim Hero `text-xl/lg:text-2xl`, botones `px-12 py-4`, Welcome "Cuatro amigos… cero filtros" con iconos de red, MARCA en rojo, header sin sombra con menú abierto |
+| | └ FIX slider "Episodios recientes": `slice(0,5)` → `slice(0,15)` | hecho | — | — | Con 5 cards no había desbordamiento y el slider no deslizaba; 15 cards ≈ 5800px desbordan en pantallas reales |
 
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.

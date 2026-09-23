@@ -3,7 +3,10 @@ import Link from "@/components/Link.astro";
 import FlipCard from "@/components/FlipCard.astro";
 ---
 
-<section class="pt-36 pb-16 lg:pb-0 flex flex-col gap-4 lg:gap-12 items-center" data-flip-clock>
+<section
+  class="bg-knc-600 text-dark-950 px-6 py-24 lg:py-32 flex flex-col gap-4 lg:gap-12 items-center"
+  data-flip-clock
+>
   <div
     class="flex scale-90 items-center justify-center gap-3 lg:gap-8 text-lg lg:text-6xl font-bold font-title"
   >
@@ -13,11 +16,11 @@ import FlipCard from "@/components/FlipCard.astro";
   </div>
 
   <p class="text-lg lg:text-4xl text-center px-4">
-    Lunes a las 20:00 h, o 1 día antes uniendote en nuestro canal de Youtube
+    Si sobrevives al lunes, nos vemos a las ocho
   </p>
 
   <div class="flex items-center gap-4 mt-2 lg:mt-8">
-    <Link href="/podcast" label="Ver podcast" bgColor="bg-knc-600" textColor="text-dark-950" />
+    <Link href="/podcast" label="Ver podcast" bgColor="bg-dark-950" textColor="text-dark-50" />
   </div>
 </section>
 

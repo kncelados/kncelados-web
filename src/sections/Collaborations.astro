@@ -1,6 +1,5 @@
 ---
 import Link from "@/components/Link.astro";
-import { metrics } from "@/lib/commercial";
 import { ArrowRight } from "@lucide/astro";
 ---
 
@@ -12,22 +11,8 @@ import { ArrowRight } from "@lucide/astro";
   <p class="max-w-2xl text-center font-sans text-lg text-dark-50/75 lg:text-xl">
     Colaboramos con marcas que entienden que el humor mueve más que el
     storytelling. Sin guion corporativo, sin corbata y sin postureo: tu marca
-    entra en el grupo del WhatsApp y se hace querer.
+    entra en el grupo de WhatsApp y se hace querer.
   </p>
-
-  <div class="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-6">
-    {
-      metrics.map(({ value, label, source }) => (
-        <div class="flex flex-col gap-1 rounded-3xl border border-white/10 bg-white/[0.03] p-4 text-center">
-          <span class="font-title text-2xl text-knc-600 lg:text-3xl">{value}</span>
-          <span class="font-sans text-xs text-dark-50/80 lg:text-sm">{label}</span>
-          <span class="font-title text-[0.55rem] uppercase text-dark-50/40 lg:text-[0.6rem]">
-            {source}
-          </span>
-        </div>
-      ))
-    }
-  </div>
 
   <div class="grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3 lg:gap-6">
     <div class="flex flex-col gap-2 rounded-3xl bg-knc-600/10 p-6">

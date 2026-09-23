@@ -6,17 +6,18 @@ import Spotify from "@/lib/assets/Spotify.astro";
 import Telegram from "@/lib/assets/Telegram.astro";
 import Tiktok from "@/lib/assets/Tiktok.astro";
 import Youtube from "@/lib/assets/Youtube.astro";
+import { STORE_URL } from "@/lib/consts";
 
-const navLinks = [
+const navLinks: { label: string; href: string; target?: string; rel?: string }[] = [
   { label: "Inicio", href: "/" },
   { label: "Podcast", href: "/podcast" },
   { label: "Colabora", href: "/contacto" },
-  { label: "Tienda", href: "/tienda" },
+  { label: "Tienda", href: STORE_URL, target: "_blank", rel: "noopener" },
   { label: "Descargas", href: "/descargas" },
 ];
 
 const socials = [
-  { label: "Youtube", href: "https://www.youtube.com/@kncelados", icon: Youtube },
+  { label: "YouTube", href: "https://www.youtube.com/@kncelados", icon: Youtube },
   {
     label: "Spotify",
     href: "https://open.spotify.com/show/5bDQAbJUSdfHYdii8A8eX0",
@@ -42,7 +43,12 @@ const socials = [
         {
           navLinks.map((link) => (
             <li>
-              <a href={link.href} class="hover:opacity-70 transition-opacity">
+              <a
+                href={link.href}
+                target={link.target}
+                rel={link.rel}
+                class="hover:opacity-70 transition-opacity"
+              >
                 {link.label}
               </a>
             </li>

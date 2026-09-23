@@ -72,6 +72,12 @@
 | 2026-09-22 | Métricas y formatos del MediaKit 2026 publicados en la web (sin precios); bloque de métricas dentro de Collaborations en la home | Datos reales del kit aportado por el cliente; el PDF con precios NO es descargable (decisión del usuario) |
 | 2026-09-22 | Media kit público en `/knc-media-kit-publico-2026.pdf`; eliminado `knc_dossier-web_2024.pdf` y su enlace | Dossier 2026 sin precios como descargable público; no exponer la versión de negociación con precios |
 | 2026-09-22 | Email comercial confirmado: `hola@kncelados.com` (de `CONTACT_EMAIL` en el formulario y visible en `/contacto`) | Fuente: MediaKit 2026, págs. 1 y 7 |
+| 2026-09-23 | Orden home (H12): Hero→Next→Welcome→Episodios→Colabora→Marcas→Knsultorio→Mug→Mystery→KnCine→Stats→MeteTuMarca→CTA final (13 secciones) | Reestructuración aprobada por el usuario (FASE 1); sustituye al orden de 9 secciones de H9 |
+| 2026-09-23 | Claim Hero a `text-xl lg:text-2xl`; botones Hero `px-12 py-4` | Elecciones explícitas del usuario vía tool question (FASE 2) |
+| 2026-09-23 | Welcome: "Cuatro amigos, un podcast, cero filtros" + iconos de la red (YouTube/Spotify/Instagram/TikTok) en los 4 `Link` | Copy e iconos aprobados por el usuario (FASE 4); usa la prop `icon` de `Link.astro` |
+| 2026-09-23 | Slider "Episodios recientes" muestra las 15 cards más recientes (`slice(0, 15)`); spacer final eliminado | Con 5 cards no había desbordamiento → flechas/drag no-op; decisión de conteo del usuario: "15 más recientes" |
+| 2026-09-23 | Logo header pierde el glow al abrir el menú (clase `.no-shadow`, transición 500ms) | Sombra 10px sobre el panel oscuro del menú abierto se veía sucia (FASE 2) |
+| 2026-09-23 | Meta description de home: se mantiene "Más de 150K suscriptores" | Decisión del usuario: copy SEO factual, no visible en página |
 
 ## Estado del upgrade
 

@@ -6,17 +6,18 @@ import Spotify from "@/lib/assets/Spotify.astro";
 import Telegram from "@/lib/assets/Telegram.astro";
 import Tiktok from "@/lib/assets/Tiktok.astro";
 import Youtube from "@/lib/assets/Youtube.astro";
+import { STORE_URL } from "@/lib/consts";
 
-const navLinks = [
+const navLinks: { label: string; href: string; target?: string; rel?: string }[] = [
   { label: "Inicio", href: "/" },
   { label: "Podcast", href: "/podcast" },
   { label: "Colabora", href: "/contacto" },
-  { label: "Tienda", href: "/tienda" },
+  { label: "Tienda", href: STORE_URL, target: "_blank", rel: "noopener" },
   { label: "Descargas", href: "/descargas" },
 ];
 
 const socials = [
-  { label: "Youtube", href: "https://www.youtube.com/@kncelados", icon: Youtube },
+  { label: "YouTube", href: "https://www.youtube.com/@kncelados", icon: Youtube },
   { label: "Spotify", href: "https://open.spotify.com/show/5bDQAbJUSdfHYdii8A8eX0", icon: Spotify },
   { label: "Instagram", href: "https://www.instagram.com/kncelados", icon: Instagram },
   { label: "TikTok", href: "https://www.tiktok.com/@kncelados", icon: Tiktok },
@@ -26,7 +27,11 @@ const socials = [
 ---
 
 <header id="site-header" class="fixed z-10 w-full flex items-center justify-between p-4 lg:p-12">
-  <a href="/" id="header-logo" class="hover:rotate-360 transition-transform duration-500 drop-shadow-[0_0_10px_#03030A]">
+  <a
+    href="/"
+    id="header-logo"
+    class="header-logo hover:rotate-360 transition-transform duration-500"
+  >
     <EmptiedLogo class="size-18 text-knc-600" />
   </a>
 
@@ -60,6 +65,8 @@ const socials = [
             <li>
               <a
                 href={link.href}
+                target={link.target}
+                rel={link.rel}
                 class="menu-link inline-block transition-transform hover:scale-110 hover:-rotate-2"
               >
                 {link.label}
@@ -93,6 +100,17 @@ const socials = [
   </div>
 </div>
 
+<style>
+  .header-logo {
+    filter: drop-shadow(0 0 10px #03030a);
+    transition: filter 500ms;
+  }
+
+  .header-logo.no-shadow {
+    filter: none;
+  }
+</style>
+
 <script>
   let keydownHandler: ((e: KeyboardEvent) => void) | null = null;
 
@@ -124,6 +142,7 @@ const socials = [
 
       header.classList.add("z-40");
       btn.classList.add("z-40");
+      headerLogo?.classList.add("no-shadow");
       btnText.textContent = "X";
       bracketL.classList.replace("text-knc-600", "text-dark-950");
       bracketR.classList.replace("text-knc-600", "text-dark-950");
@@ -149,6 +168,7 @@ const socials = [
 
       header.classList.remove("z-40");
       btn.classList.remove("z-40");
+      headerLogo?.classList.remove("no-shadow");
       btnText.textContent = "menu";
       bracketL.classList.replace("text-dark-950", "text-knc-600");
       bracketR.classList.replace("text-dark-950", "text-knc-600");
