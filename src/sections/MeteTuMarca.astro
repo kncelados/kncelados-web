@@ -1,23 +1,124 @@
 ---
 import Link from "@/components/Link.astro";
 import { ArrowRight } from "@lucide/astro";
+
+const brands = [
+  {
+    src: "/goiko.svg",
+    alt: "Goiko",
+    href: "https://www.goiko.com/es/?from=kncelados.com",
+  },
+  {
+    src: "/prime-video.svg",
+    alt: "Prime Video",
+    href: "https://www.primevideo.com/?from=kncelados.com",
+  },
+  {
+    src: "/penguin.svg",
+    alt: "Penguin",
+    href: "https://www.penguinlibros.com/es/?from=kncelados.com",
+  },
+  {
+    src: "/temu.svg",
+    alt: "Temu",
+    href: "https://www.temu.com/?from=kncelados.com",
+  },
+  {
+    src: "/zeemo.svg",
+    alt: "Zeemo",
+    href: "https://zeemo.ai/es/?from=kncelados.com",
+  },
+];
 ---
 
-<section class="flex w-full flex-col items-center gap-8 px-6 py-20 lg:gap-12 lg:py-32">
-  <h2 class="max-w-3xl text-center text-3xl lg:text-5xl">
-    METE TU <span class="text-knc-600">MARCA</span><br />EN LA CONVERSACIÓN
-  </h2>
+<section class="flex w-full flex-col items-center gap-10 bg-knc-600 px-6 py-20 text-dark-950 lg:gap-14 lg:py-32">
+  <div class="flex w-full max-w-3xl flex-col items-center gap-3">
+    <h2 class="text-center text-3xl lg:text-5xl">
+      METE TU <span class="text-dark-50">MARCA</span><br />EN LA CONVERSACIÓN
+    </h2>
 
-  <p class="max-w-2xl text-center font-sans text-lg text-dark-50/75 lg:text-xl">
-    Colaboramos con <span class="text-knc-600">marcas</span> que entienden que
-    el humor mueve masas.
-  </p>
+    <p class="max-w-2xl text-center font-sans text-lg text-dark-950/85 lg:text-xl">
+      Colaboramos con <span class="font-bold">marcas</span> que entienden que
+      el humor mueve masas.
+    </p>
+  </div>
+
+  <div class="flex w-full flex-col items-center gap-8 lg:gap-10">
+    <h3 class="-rotate-3 text-2xl pt-8 text-dark-50 lg:text-3xl">
+      SERÍA<span class="line-through decoration-dark-950 relative">
+        &nbsp;IMPOSIBLE&nbsp;
+      </span>SIN
+    </h3>
+
+    <div class="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden">
+      <div class="flex gap-4 shrink-0 animate-marquee">
+        {brands.map((brand) => (
+          <a
+            href={brand.href}
+            target="_blank"
+            rel="sponsored noopener"
+            class="shrink-0"
+          >
+            <img
+              src={brand.src}
+              alt={brand.alt}
+              class="shrink-0 h-16 lg:h-24 aspect-video"
+            />
+          </a>
+        ))}
+        <div aria-hidden="true" class="flex gap-4 shrink-0">
+          {brands.map((brand) => (
+            <img src={brand.src} alt="" class="shrink-0 h-16 lg:h-24 aspect-video" />
+          ))}
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {brands.map((brand) => (
+            <img src={brand.src} alt="" class="shrink-0 h-16 lg:h-24 aspect-video" />
+          ))}
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {brands.map((brand) => (
+            <img src={brand.src} alt="" class="shrink-0 h-16 lg:h-24 aspect-video" />
+          ))}
+        </div>
+        <div aria-hidden="true" class="flex gap-4 shrink-0 hidden lg:flex">
+          {brands.map((brand) => (
+            <img src={brand.src} alt="" class="shrink-0 h-16 lg:h-24 aspect-video" />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
 
   <Link
     href="/contacto"
     label="Hablemos"
-    bgColor="bg-knc-600"
-    textColor="text-dark-950"
+    bgColor="bg-dark-950"
+    textColor="text-knc-600"
     icon={ArrowRight}
   />
 </section>
+
+<style>
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    width: max-content;
+    animation: marquee 20s linear infinite;
+  }
+
+  h3 span::after {
+    content: "mucho más difícil";
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    font-family: var(--font-hand);
+    text-transform: lowercase;
+    color: var(--color-dark-950);
+    text-align: center;
+    transform: scale(1.3);
+  }
+</style>
