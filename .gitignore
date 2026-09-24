@@ -31,3 +31,9 @@ server-test*.log
 telegram_ask_result.txt
 telegram_ask_result_*.txt
 telegram_ask_result*.txt
+
+# credenciales temporales de pruebas locales (no subir)
+gh_auth_login.txt
+gh_auth_login_*.txt
+telegram_ask_result*.txt
+telegram_ask_result_*.txt
