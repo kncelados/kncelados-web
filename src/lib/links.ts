@@ -15,4 +15,32 @@ export const links = [
     slug: "sitges",
     url: "https://luma.com/qroxm97t",
   },
+  {
+    slug: "mystery",
+    url: "https://www.amazon.es/Mystery-fantasma-crucero-acertijos-apasionantes/dp/8410442663",
+  },
+  {
+    slug: "tienda",
+    url: "https://kncelados.myshopify.com",
+  },
+  {
+    slug: "taza",
+    url: "https://kncelados.myshopify.com/products/taza-roja",
+  },
+  {
+    slug: "madrid",
+    url: "https://palaciodelaprensa.com/espectaculo/madrid-al-habla-kncelados/Kncelados",
+  },
+  {
+    slug: "instagram",
+    url: "https://www.instagram.com/kncelados",
+  },
+  {
+    slug: "tiktok",
+    url: "https://www.tiktok.com/@kncelados",
+  },
+  {
+    slug: "telegram",
+    url: "https://t.me/kncelados",
+  },
 ];
