@@ -12,25 +12,25 @@ const current_season = data[0].season;
     {title || `Temporada ${current_season}`}
   </h2>
 
-  <div
-    class="slider snap flex h-44 w-full snap-x snap-mandatory scroll-pl-6 items-center gap-1 overflow-x-auto lg:h-72 lg:scroll-pl-20"
-  >
-    <div class="shrink-0 snap-start">
-      <div class="w-6 shrink-0 lg:w-20"></div>
+  <div class="relative">
+    <div
+      class="slider snap flex h-44 w-full snap-x snap-proximity items-center gap-1 overflow-x-auto pl-6 pr-6 lg:h-72 lg:pl-20 lg:pr-20"
+    >
+      {data.map((episode) => <VideoCard data={episode} />)}
     </div>
 
-    {data.map((episode) => <VideoCard data={episode} />)}
-
     <button
-      class="prev absolute left-0 z-20 hidden h-full bg-gradient-to-b from-transparent via-black/30 to-transparent lg:inline [&>svg]:hover:scale-110"
+      class="prev absolute top-1/2 left-0 z-20 hidden -translate-y-1/2 rounded-full bg-dark-950/70 p-2 text-knc-500 backdrop-blur transition-transform hover:scale-110 lg:inline-flex sm:p-3"
+      aria-label="Anterior"
     >
-      <Prev class="w-20 transition-transform" />
+      <Prev class="w-6 sm:w-8" />
     </button>
 
     <button
-      class="next absolute right-0 z-20 hidden h-full bg-gradient-to-b from-transparent via-black/30 to-transparent lg:inline [&>svg]:hover:scale-110"
+      class="next absolute top-1/2 right-0 z-20 hidden -translate-y-1/2 rounded-full bg-dark-950/70 p-2 text-knc-500 backdrop-blur transition-transform hover:scale-110 lg:inline-flex sm:p-3"
+      aria-label="Siguiente"
     >
-      <Next class="w-20 transition-transform" />
+      <Next class="w-6 sm:w-8" />
     </button>
   </div>
 </section>
@@ -43,8 +43,8 @@ const current_season = data[0].season;
 
     sliders.forEach((slider) => {
       const slide = slider.querySelector("article");
-      const prev = slider.querySelector(".prev");
-      const next = slider.querySelector(".next");
+      const prev = slider.parentElement?.querySelector(".prev");
+      const next = slider.parentElement?.querySelector(".next");
 
       if (!slide || !prev || !next) return;
 
@@ -70,7 +70,7 @@ const current_season = data[0].season;
 </script>
 
 <style>
-  section > div {
+  .slider {
     scrollbar-width: none;
   }
 </style>

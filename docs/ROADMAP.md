@@ -40,6 +40,11 @@
 | | └ H13.4 Foto de grupo en el hero | hecho | — | — | Usuario entregó `public/foto-colabora.png` (1724×912); sustituye al collage de retratos |
 | | └ H13.5 Feedback ronda 2 (23/09): hero centrado en columna única con más padding (`pt-44 pb-28` / `lg:pt-56 lg:pb-36`, `gap-16`, foto `max-w-3xl`); números de plataforma a `lg:text-6xl`; bloque total `+1,2M SEGUIDORES` en una línea y mismo tamaño (`text-4xl lg:text-6xl`, SEGUIDORES en acento) | hecho | — | — | Verificado: `astro check` 0 errores, build completo, `/contacto` 200 |
 
+| H14 | Ajuste versión móvil de la home: carrusel de episodios (peek + snap suave) + unificación de paddings a `px-6` + revisión móvil de KncineAwards, Knsultorio y Hero | hecho | H13 | bajo | Verificación (24/09/2026): `astro check` 0 errores, `bun run build` completo, home sirve 200 con los cambios servidos por el dev server |
+| | └ Carrusel `VideoSlider`: `snap-mandatory` → `snap-proximity`, padding real `pl-6 pr-6` (lg `pl-20 pr-20`) en vez del spacer-duplicado, flechas fuera del contenedor `overflow-auto`, JS buscando `prev/next` fuera del slider | hecho | — | — | Peek de la siguiente card; deslizamiento natural en móvil; flechas siguen ocultas en móvil (decisión usuario) |
+| | └ Unificación alineación `px-6`: `Mug` `px-4`→`px-6`, `Header` `p-4`→`p-6` (y menú `px-4`→`px-6`) | hecho | — | — | Rejilla horizontal coherente a 24px en móvil |
+| | └ Revisión móvil resto: `KncineAwarads` padding interno `px-11 sm:px-16`→`px-6 lg:px-12`; `Knsultorio` texto `text-4xl`→`text-3xl sm:text-4xl` + `px-6 pb-10`; `Hero` logo `92vw`→`85vw` + claim `text-3xl`→`text-2xl sm:text-3xl` + `gap-8`→`gap-6` | hecho | — | — | Kncine·Knsultorio·Hero no desbordan ni rozan bordes en pantallas estrechas |
+
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.
 > (`Resend` ya en uso parcial: env vars `RESEND_API_KEY`, `CONTACT_EMAIL`, `CONTACT_FROM_EMAIL`.)
