@@ -1,166 +1,211 @@
 ---
-const SITGES = {
-  place: "Sitges, Barcelona",
-  date: "29 de agosto",
-  status: "SOLD OUT",
-  disabled: true,
-  background: "https://i.ytimg.com/vi/5y-y0tXbcSs/maxresdefault.jpg",
-  video: "https://www.youtube.com/watch?v=5y-y0tXbcSs",
-};
-
-const VALENCIA = {
-  place: "Valencia",
-  venue: "Teatro Laplazeta",
-  date: "13 de junio",
-  status: "SOLD OUT",
-  disabled: true,
-  background: "https://i.ytimg.com/vi/aHLCKXgsU3Q/maxresdefault.jpg",
-  video: "https://www.youtube.com/watch?v=aHLCKXgsU3Q",
-};
-
-const MADRID = {
-  label: "KNCELADOS Madrid",
-  date: "29 de noviembre",
-  venue: "Palacio de la Prensa",
-  background: "/kncelados-podcast.jpg", // placeholder hasta tener imagen real de Madrid
-  tickets: "/link/madrid",
-};
-
-const NEXT = {
-  label: "Próximamente",
-  disabled: true,
-};
+const shows = [
+  {
+    id: "valencia",
+    status: "SOLD OUT",
+    rotateClass: "rotate-12",
+    place: "Valencia",
+    venue: "Teatro Laplazeta",
+    date: "13 de junio",
+    background: "https://i.ytimg.com/vi/Nc9vvGICvP4/maxresdefault.jpg",
+    video: "https://www.youtube.com/watch?v=Nc9vvGICvP4",
+    link: "Ver",
+    opacityClass: "opacity-40",
+    desktopSpan: "",
+  },
+  {
+    id: "sitges",
+    status: "SOLD OUT",
+    rotateClass: "-rotate-12",
+    place: "Sitges",
+    venue: "Chilliboys",
+    date: "29 de agosto",
+    background: "https://i.ytimg.com/vi/5y-y0tXbcSs/maxresdefault.jpg",
+    video: "https://www.youtube.com/watch?v=5y-y0tXbcSs",
+    link: "Ver",
+    opacityClass: "opacity-40",
+    desktopSpan: "",
+  },
+  {
+    id: "madrid",
+    status: "",
+    rotateClass: "",
+    place: "Madrid",
+    venue: "Palacio de la Prensa",
+    date: "29 de noviembre",
+    background: "/MadridAlHabla.jpeg",
+    tickets: "/link/madrid",
+    link: "Tickets",
+    opacityClass: "opacity-80",
+    desktopSpan: "",
+  },
+  {
+    id: "proximamente",
+    placeholder: true,
+    label: "Próximamente",
+    hint: "Nuevo show en camino…",
+    desktopSpan: "",
+  },
+];
 ---
 
 <section
   id="shows"
   class="flex w-full flex-col items-center gap-10 bg-knc-600 px-6 py-20 text-dark-950 lg:gap-14 lg:py-32"
 >
-  <h2 class="text-center text-3xl text-dark-50 lg:text-5xl">
-    SHOWS EN VIVO
-  </h2>
+  <div class="flex w-full max-w-3xl flex-col items-center gap-4 text-center">
+    <h2 class="text-3xl lg:text-5xl">
+      SHOWS <span class="text-dark-50">EN VIVO</span>
+    </h2>
+    <p class="max-w-2xl font-sans text-lg text-dark-950/90 lg:text-2xl">
+      De vez en cuando salimos del estudio a que nos dé el aire.
+    </p>
+  </div>
 
-  <div class="grid w-full max-w-6xl grid-cols-1 gap-6 lg:grid-cols-4 lg:gap-6">
-    <!-- Valencia: SOLD OUT, deshabilitado -->
-    <article
-      class="relative overflow-hidden rounded-3xl bg-dark-950 text-dark-50"
-    >
-      <img
-        src={VALENCIA.background}
-        alt="Show de Valencia en el Teatro Laplazeta"
-        loading="lazy"
-        decoding="async"
-        class="absolute inset-0 size-full object-cover opacity-50"
-      />
-      <div
-        class="relative z-10 flex aspect-[4/5] flex-col items-center justify-between gap-4 p-6 text-center"
+  <!-- Carrusel móvil: Madrid como tarjeta principal con peek a la izquierda -->
+  <div class="shows-slider w-full max-w-6xl snap-x snap-proximity flex gap-6 overflow-x-auto pb-2 pl-6 pr-6 lg:hidden">
+    {shows.map((show) => (
+      <article class="shows-card relative aspect-[4/5] w-72 shrink-0 overflow-hidden rounded-3xl text-dark-50 sm:w-80">
+        {show.placeholder ? (
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-dark-950/40 p-6 text-center">
+            <span class="font-title text-2xl uppercase text-dark-950">{show.label}</span>
+            <span class="font-sans text-base text-dark-950">{show.hint}</span>
+          </div>
+        ) : (
+          <>
+            <img
+              src={show.background}
+              alt={`Show de Kncelados en ${show.place}`}
+              loading="lazy"
+              decoding="async"
+              class={`absolute inset-0 size-full object-cover ${show.opacityClass}`}
+            />
+            {show.status && (
+              <span
+                class={`absolute top-6 left-1/2 z-20 -translate-x-1/2 ${show.rotateClass} whitespace-nowrap rounded-md border-2 border-knc-500 px-4 py-1 font-title text-2xl uppercase text-knc-500`}
+              >
+                {show.status}
+              </span>
+            )}
+            <div class="absolute inset-0 z-10 flex items-center justify-center p-6 text-center">
+              <div class="flex flex-col items-center gap-1 text-shadow-strong">
+                <span class="font-title text-2xl uppercase lg:text-3xl">
+                  {show.place}
+                </span>
+                <span class="font-sans text-lg">{show.date}</span>
+                <span class="font-sans text-sm uppercase">{show.venue}</span>
+              </div>
+            </div>
+            <a
+              href={show.video ?? show.tickets}
+              target={show.video ? "_blank" : undefined}
+              rel={show.video ? "noopener noreferrer" : undefined}
+              class="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full border-2 border-knc-500 px-8 py-3 font-title text-base uppercase text-knc-500 transition-transform hover:scale-105"
+            >
+              {show.link}
+            </a>
+          </>
+        )}
+      </article>
+    ))}
+  </div>
+
+  <!-- Rejilla desktop: 4 en una fila, Madrid algo más ancha (1.5fr) -->
+  <div class="hidden w-full max-w-6xl grid-cols-[1fr_1fr_1.5fr_1fr] gap-6 lg:grid">
+    {shows.map((show) => (
+      <article
+        class={`relative h-96 overflow-hidden rounded-3xl text-dark-50 ${show.desktopSpan}`}
       >
-        <span
-          class="-rotate-12 rounded-md border-2 border-knc-500 px-4 py-1 font-title text-2xl uppercase text-knc-500"
-        >
-          {VALENCIA.status}
-        </span>
-
-        <div class="flex flex-col items-center gap-1">
-          <span class="font-title text-2xl uppercase lg:text-3xl">
-            {VALENCIA.place}
-          </span>
-          <span class="font-sans text-lg opacity-70">{VALENCIA.venue}</span>
-          <span class="font-sans text-sm uppercase opacity-60">{VALENCIA.date}</span>
-        </div>
-
-        <a
-          href={VALENCIA.video}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="rounded-full bg-knc-600 px-8 py-3 font-title text-base uppercase text-dark-950 transition-transform hover:scale-105"
-        >
-          Ver
-        </a>
-      </div>
-      <div class="pointer-events-none absolute inset-0 z-20 bg-dark-950/45" />
-    </article>
-
-    <!-- Sitges: SOLD OUT, deshabilitado -->
-    <article
-      class="relative overflow-hidden rounded-3xl bg-dark-950 text-dark-50"
-    >
-      <img
-        src={SITGES.background}
-        alt="Show de Sitges en el Chilliboys"
-        loading="lazy"
-        decoding="async"
-        class="absolute inset-0 size-full object-cover opacity-50"
-      />
-      <div
-        class="relative z-10 flex aspect-[4/5] flex-col items-center justify-between gap-4 p-6 text-center"
-      >
-        <span
-          class="-rotate-12 rounded-md border-2 border-knc-500 px-4 py-1 font-title text-2xl uppercase text-knc-500"
-        >
-          {SITGES.status}
-        </span>
-
-        <div class="flex flex-col items-center gap-1">
-          <span class="font-title text-2xl uppercase lg:text-3xl">
-            {SITGES.place}
-          </span>
-          <span class="font-sans text-lg opacity-70">{SITGES.date}</span>
-        </div>
-
-        <a
-          href={SITGES.video}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="rounded-full bg-knc-600 px-8 py-3 font-title text-base uppercase text-dark-950 transition-transform hover:scale-105"
-        >
-          Ver
-        </a>
-      </div>
-      <div class="pointer-events-none absolute inset-0 z-20 bg-dark-950/45" />
-    </article>
-
-    <!-- Madrid: activo -->
-    <article
-      class="relative overflow-hidden rounded-3xl bg-dark-950 text-dark-50"
-    >
-      <img
-        src={MADRID.background}
-        alt="Show de Kncelados en Madrid, Palacio de la Prensa"
-        loading="lazy"
-        decoding="async"
-        class="absolute inset-0 size-full object-cover opacity-50"
-      />
-      <div
-        class="relative z-10 flex aspect-[4/5] flex-col items-center justify-between gap-4 p-6 text-center"
-      >
-        <div class="flex flex-col items-center gap-1">
-          <span class="font-title text-2xl uppercase lg:text-3xl">
-            {MADRID.label}
-          </span>
-          <span class="font-sans text-lg">{MADRID.date}</span>
-          <span class="font-sans text-sm uppercase opacity-70">
-            {MADRID.venue}
-          </span>
-        </div>
-
-        <a
-          href={MADRID.tickets}
-          class="rounded-full bg-knc-600 px-8 py-3 font-title text-base uppercase text-dark-950 transition-transform hover:scale-105"
-        >
-          Tickets
-        </a>
-      </div>
-    </article>
-
-    <!-- Próximamente: bloqueado -->
-    <article
-      class="relative flex aspect-[4/5] flex-col items-center justify-center gap-4 rounded-3xl border-2 border-dashed border-dark-950/40 p-6 text-center opacity-80"
-    >
-      <span class="font-title text-3xl uppercase">Próximamente</span>
-      <span class="font-sans text-lg opacity-60">
-        Nuevo show en camino…
-      </span>
-    </article>
+        {show.placeholder ? (
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-dark-950/40 p-6 text-center">
+            <span class="font-title text-2xl uppercase text-dark-950">{show.label}</span>
+            <span class="font-sans text-base text-dark-950">{show.hint}</span>
+          </div>
+        ) : (
+          <>
+            <img
+              src={show.background}
+              alt={`Show de Kncelados en ${show.place}`}
+              loading="lazy"
+              decoding="async"
+              class={`absolute inset-0 size-full object-cover ${show.opacityClass}`}
+            />
+            {show.status && (
+              <span
+                class={`absolute top-6 left-1/2 z-20 -translate-x-1/2 ${show.rotateClass} whitespace-nowrap rounded-md border-2 border-knc-500 px-4 py-1 font-title text-2xl uppercase text-knc-500`}
+              >
+                {show.status}
+              </span>
+            )}
+            <div class="absolute inset-0 z-10 flex items-center justify-center p-6 text-center">
+              <div class="flex flex-col items-center gap-1 text-shadow-strong">
+                <span class="font-title text-2xl uppercase lg:text-3xl">
+                  {show.place}
+                </span>
+                <span class="font-sans text-lg">{show.date}</span>
+                <span class="font-sans text-sm uppercase">{show.venue}</span>
+              </div>
+            </div>
+            <a
+              href={show.video ?? show.tickets}
+              target={show.video ? "_blank" : undefined}
+              rel={show.video ? "noopener noreferrer" : undefined}
+              class="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full border-2 border-knc-500 px-8 py-3 font-title text-base uppercase text-knc-500 transition-transform hover:scale-105"
+            >
+              {show.link}
+            </a>
+          </>
+        )}
+      </article>
+    ))}
   </div>
 </section>
+
+<script>
+  function init_shows_slider() {
+    const slider = document.querySelector(".shows-slider");
+    if (!slider) return;
+
+    const cards = Array.from(slider.querySelectorAll(".shows-card"));
+    const madridIndex = cards.findIndex((c) =>
+      c.querySelector("span")?.textContent?.trim() === "Madrid"
+    );
+    if (madridIndex < 0) return;
+
+    // Posa a Madrid como tarjeta principal, dejando asomar la anterior (peek izq)
+    // y la siguiente (peek der).
+    const position = () => {
+      const cardWidth = cards[madridIndex].offsetWidth;
+      const gap = 24; // gap-6
+      // scrollLeft = suma de anchos previos + gaps, menos un margen de peek
+      let offset = 0;
+      for (let i = 0; i < madridIndex; i++) {
+        offset += cards[i].offsetWidth + gap;
+      }
+      offset -= 48; // dejar a la izquierda una franja de la tarjeta anterior
+      slider.scrollLeft = Math.max(0, offset);
+    };
+
+    position();
+    window.addEventListener("resize", position);
+  }
+
+  init_shows_slider();
+  document.addEventListener("astro:after-swap", init_shows_slider);
+</script>
+
+<style>
+  .shows-slider {
+    scrollbar-width: none;
+  }
+
+  .shows-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .text-shadow-strong {
+    text-shadow:
+      0 2px 3px rgba(3, 3, 10, 0.9),
+      0 6px 18px rgba(3, 3, 10, 0.7);
+  }
+</style>
