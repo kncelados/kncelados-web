@@ -43,6 +43,12 @@
 - El formulario y `¿HABLAMOS?` se eliminaron de la página por decisión del usuario: el contacto es un botón mailto. El endpoint `POST /api/contact` (Resend, H9) se conserva en el repo **sin uso** en `/contacto`.
 - La foto de grupo `public/foto-colabora.png` (1724×912) sustituyó al antiguo collage de 6 retratos.
 
+## KnCine Awards —Películas de la home
+
+- Las películas mostradas en la home se centralizan en `src/lib/kncine.ts` mediante la interfaz `KncineEntry` (`title`, `src`, `alt`).
+- `src/sections/KncineAwarads.astro` renderiza el carrusel usando esa lista y paginación automática de seis tarjetas por página.
+- *Infiltrados* (*The Departed*) forma parte de la selección desde H15 y usa el póster aportado por el usuario en `public/infiltrados.png`.
+
 ## Stack — estado destino
 
 - Astro: 7.1.6 ✓

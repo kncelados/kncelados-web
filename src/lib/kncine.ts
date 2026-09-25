@@ -45,4 +45,9 @@ export const kncine = [
     src: "/posters/shrek.jpg",
     alt: "Poster de Shrek",
   },
+  {
+    title: "Infiltrados",
+    src: "/infiltrados.png",
+    alt: "Poster de Infiltrados",
+  },
 ] satisfies KncineEntry[];
