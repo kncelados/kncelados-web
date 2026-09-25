@@ -15,7 +15,7 @@ Add the user-provided poster for *Infiltrados* (*The Departed*) to the KnCine Aw
 
 - [x] Add *Infiltrados* to `src/lib/kncine.ts` using the provided poster.
 - [x] Update `docs/ROADMAP.md` and `docs/ARCHITECTURE.md` with the completed milestone.
-- [ ] Run focused verification, commit the work unit, and push the feature branch.
+- [x] Run focused verification, commit the work unit, and push the feature branch.
 
 ## Acceptance Criteria
 
@@ -26,7 +26,7 @@ Add the user-provided poster for *Infiltrados* (*The Departed*) to the KnCine Aw
 
 ## Delivery Evidence
 
-- Commit: pending
+- Commit: `78e4235` (`feat: add Infiltrados to KnCine Awards`)
 - Verification: `bunx astro check` and `bun run build` passed; `git diff --check` passed.
 
 ## Engram Mirror
