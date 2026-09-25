@@ -48,6 +48,7 @@
 - Las películas mostradas en la home se centralizan en `src/lib/kncine.ts` mediante la interfaz `KncineEntry` (`title`, `src`, `alt`).
 - `src/sections/KncineAwarads.astro` renderiza el carrusel usando esa lista y paginación automática de seis tarjetas por página.
 - *Infiltrados* (*The Departed*) forma parte de la selección desde H15 y usa el póster aportado por el usuario en `public/infiltrados.png`.
+- Desde H16, cada póster enlaza a la búsqueda oficial de IMDb por título en una pestaña nueva (`https://www.imdb.com/find/?q=...`), sin inventar identificadores de obras.
 
 ## Stack — estado destino
 

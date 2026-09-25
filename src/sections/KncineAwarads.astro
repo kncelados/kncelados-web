@@ -4,6 +4,8 @@ import Prev from "@/lib/assets/Prev.astro";
 import Next from "@/lib/assets/Next.astro";
 
 const pages_count = Math.max(1, Math.ceil(kncine.length / 6));
+const imdb_search_url = (title: string) =>
+  `https://www.imdb.com/find/?q=${encodeURIComponent(title)}`;
 ---
 
 <section
@@ -28,9 +30,12 @@ const pages_count = Math.max(1, Math.ceil(kncine.length / 6));
           {kncine
             .slice(page_index * 6, page_index * 6 + 6)
             .map((movie) => (
-              <div
-                class="card group relative aspect-[2/3] overflow-hidden rounded-xl bg-dark-900"
-                aria-label={movie.title}
+              <a
+                class="card group relative block aspect-[2/3] overflow-hidden rounded-xl bg-dark-900"
+                href={imdb_search_url(movie.title)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${movie.title} en IMDb`}
               >
                 <img
                   src={movie.src}
@@ -57,7 +62,7 @@ const pages_count = Math.max(1, Math.ceil(kncine.length / 6));
                     class="w-[26px] lg:w-[35px]"
                   />
                 </span>
-              </div>
+              </a>
             ))}
         </div>
       ))}

@@ -45,6 +45,7 @@
 | | └ Unificación alineación `px-6`: `Mug` `px-4`→`px-6`, `Header` `p-4`→`p-6` (y menú `px-4`→`px-6`) | hecho | — | — | Rejilla horizontal coherente a 24px en móvil |
 | | └ Revisión móvil resto: `KncineAwarads` padding interno `px-11 sm:px-16`→`px-6 lg:px-12`; `Knsultorio` texto `text-4xl`→`text-3xl sm:text-4xl` + `px-6 pb-10`; `Hero` logo `92vw`→`85vw` + claim `text-3xl`→`text-2xl sm:text-3xl` + `gap-8`→`gap-6` | hecho | — | — | Kncine·Knsultorio·Hero no desbordan ni rozan bordes en pantallas estrechas |
 | H15 | Añadir *Infiltrados* (*The Departed*) a KnCine Awards con el póster aportado por el usuario | hecho | H14 | bajo | La película aparece en el carrusel de la home usando `public/infiltrados.png`; `astro check` y `bun run build` pasan |
+| H16 | Hacer clicables todos los carteles de KnCine Awards con búsqueda oficial de IMDb | hecho | H15 | bajo | Los 9 carteles abren `https://www.imdb.com/find/?q=<título>` en una pestaña nueva; `astro check` y `bun run build` pasan |
 
 > **Nota futura:** próximas iteraciones requerirán Supabase y Resend para nuevas
 > secciones y páginas. Fuera de alcance del roadmap actual — queda como constancia.
