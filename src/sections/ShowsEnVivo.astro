@@ -31,20 +31,6 @@ const shows = [
     desktopSpan: "",
   },
   {
-    id: "madrid",
-    status: "",
-    rotateClass: "",
-    place: "Madrid",
-    venue: "Palacio de la Prensa",
-    date: "29 de noviembre",
-    background: "/MadridAlHabla.jpeg",
-    tickets: "/link/madrid",
-    link: "Tickets",
-    buttonClass: "rounded-full bg-knc-600 text-dark-50 hover:scale-105",
-    opacityClass: "opacity-80",
-    desktopSpan: "",
-  },
-  {
     id: "proximamente",
     placeholder: true,
     label: "Próximamente",
@@ -67,7 +53,7 @@ const shows = [
     </p>
   </div>
 
-  <!-- Carrusel móvil: Madrid como tarjeta principal con peek a la izquierda -->
+  <!-- Carrusel móvil -->
   <div class="shows-slider w-full max-w-6xl snap-x snap-proximity flex gap-6 overflow-x-auto pb-2 pl-6 pr-6 lg:hidden">
     {shows.map((show) => (
       <article class="shows-card relative aspect-[4/5] w-72 shrink-0 overflow-hidden rounded-3xl text-dark-50 sm:w-80">
@@ -115,8 +101,8 @@ const shows = [
     ))}
   </div>
 
-  <!-- Rejilla desktop: 4 en una fila, Madrid algo más ancha (1.5fr) -->
-  <div class="hidden w-full max-w-6xl grid-cols-[1fr_1fr_1.5fr_1fr] gap-6 lg:grid">
+  <!-- Rejilla desktop: 3 en una fila -->
+  <div class="hidden w-full max-w-6xl grid-cols-3 gap-6 lg:grid">
     {shows.map((show) => (
       <article
         class={`relative h-96 overflow-hidden rounded-3xl text-dark-50 ${show.desktopSpan}`}
@@ -165,39 +151,6 @@ const shows = [
     ))}
   </div>
 </section>
-
-<script>
-  function init_shows_slider() {
-    const slider = document.querySelector(".shows-slider");
-    if (!slider) return;
-
-    const cards = Array.from(slider.querySelectorAll(".shows-card"));
-    const madridIndex = cards.findIndex((c) =>
-      c.querySelector("span")?.textContent?.trim() === "Madrid"
-    );
-    if (madridIndex < 0) return;
-
-    // Posa a Madrid como tarjeta principal, dejando asomar la anterior (peek izq)
-    // y la siguiente (peek der).
-    const position = () => {
-      const cardWidth = cards[madridIndex].offsetWidth;
-      const gap = 24; // gap-6
-      // scrollLeft = suma de anchos previos + gaps, menos un margen de peek
-      let offset = 0;
-      for (let i = 0; i < madridIndex; i++) {
-        offset += cards[i].offsetWidth + gap;
-      }
-      offset -= 48; // dejar a la izquierda una franja de la tarjeta anterior
-      slider.scrollLeft = Math.max(0, offset);
-    };
-
-    position();
-    window.addEventListener("resize", position);
-  }
-
-  init_shows_slider();
-  document.addEventListener("astro:after-swap", init_shows_slider);
-</script>
 
 <style>
   .shows-slider {

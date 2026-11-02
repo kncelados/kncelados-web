@@ -28,10 +28,6 @@ export const links = [
     url: "https://kncelados.myshopify.com/products/taza-roja",
   },
   {
-    slug: "madrid",
-    url: "https://palaciodelaprensa.com/espectaculo/madrid-al-habla-kncelados/Kncelados",
-  },
-  {
     slug: "instagram",
     url: "https://www.instagram.com/kncelados",
   },
