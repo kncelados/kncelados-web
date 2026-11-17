@@ -1,0 +1,66 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout
+  title="TikTok authorisation | Kncelados"
+  description="Paso de autorización de la herramienta interna de publicación."
+>
+  <section class="mx-auto max-w-3xl px-6 py-20">
+    <p class="text-primary font-title text-sm tracking-widest uppercase">
+      [ Autorización ]
+    </p>
+    <h1 class="font-title mt-2 text-4xl lg:text-5xl">Autorización de TikTok</h1>
+
+    <p class="text-secondary mt-6 font-sans">
+      Si has llegado aquí después de autorizar <strong>knc-publisher</strong>, el
+      código de un solo uso aparece abajo. Cópialo y pégalo en la terminal.
+    </p>
+
+    <div
+      id="ok"
+      class="border-dark-950/20 mt-8 hidden rounded-2xl border-2 border-dashed p-6"
+    >
+      <p class="font-title text-primary text-sm uppercase">Código de autorización</p>
+      <code
+        id="code"
+        class="mt-2 block break-all font-mono text-sm select-all"></code>
+      <button
+        id="copy"
+        type="button"
+        class="bg-knc-600 mt-4 cursor-pointer rounded-full px-6 py-2 text-sm text-white hover:scale-105"
+      >
+        Copiar
+      </button>
+    </div>
+
+    <div id="ko" class="mt-8 hidden">
+      <p class="font-title text-primary">No ha llegado ningún código.</p>
+      <p class="text-secondary mt-2 font-sans">
+        Si TikTok mostró un error, vuelve a lanzar
+        <code class="font-mono text-sm">knc social tiktok-auth</code> y repite la
+        autorización.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  const ok = document.getElementById("ok");
+  const ko = document.getElementById("ko");
+  const target = document.getElementById("code");
+  const copy = document.getElementById("copy");
+
+  if (code && ok && target && ko) {
+    target.textContent = code;
+    ok.classList.remove("hidden");
+    copy?.addEventListener("click", () => {
+      void navigator.clipboard.writeText(code);
+      if (copy) copy.textContent = "Copiado";
+    });
+  } else {
+    ko?.classList.remove("hidden");
+  }
+</script>
